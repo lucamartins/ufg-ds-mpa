@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Cadastro {
+  id                  Int           @id @default(autoincrement())
+  nome                String
+  cpf                 String        @unique
+  sexo                Sexo
+  data_nascimento     DateTime
+  num_estado_civil    Int
+}
+
+model Candidato {
+  id                          Int           @id @default(autoincrement())
+  numg_candidato              Int           @unique
+  cpf                         String        @unique
+  codigo_cargo                Int
+  cor_raca                    Int
+  formacao_escola_publica     Boolean
+  data_inscricao              DateTime
+  codg_situacao               Int
+  flag_inscricao              Int
+  programa                    Int
+  tipo_programa               Int
+  nome_comunidade             String
+  ano_enem                    Int
+  numr_enem                   Int
+  desc_instrumento            String
+  nota_final                  Float
+  valr_total_po               Float
+  valr_red                    Float
+  valr_pf                     Float
+  numr_classificacao          Int
+  nota_vhce                   Float
+  valr_nota_enem              Float
+  semestre_ingresso           Int
+}
+
+enum Sexo {
+  M
+  F
+}
