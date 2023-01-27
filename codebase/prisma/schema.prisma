@@ -10,6 +10,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Cargos {
+  id                    Int           @id @default(autoincrement())
+  co_ies_curso          Int
+  desc_cargo            String
+  desc_grau_academico   String
+  desc_periodo          String
+  desc_cidade           String
+  codg_cargo            Int
+  numr_vagas            Int
+  numr_grupo            Int
+  desc_regional         String
+}
+
+model Notas_Enem {
+  id                      Int           @id @default(autoincrement())
+  numero_enem             Int
+  cpf_candidato           String
+  nome_candidato          String
+  nota_ciencias_natureza  Float
+  nota_ciencias_humanas   Float
+  nota_linguagens         Float
+  nota_matematica         Float
+  nota_redacao            Float
+  nota_total              Float
+}
+
+model Programas {
+  id                      Int           @id @default(autoincrement())
+  codigo                  Int
+  tipo_programa           Int
+  desc_programa           String
+  categoria_ingresso      String
+}
+
 model Cadastro {
   id                  Int           @id @default(autoincrement())
   nome                String

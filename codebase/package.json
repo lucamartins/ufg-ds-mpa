@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "migrate": "npx prisma migrate dev --name init"
+    "migrate-init": "npx prisma migrate dev --name init"
   },
   "keywords": [],
   "author": "",
