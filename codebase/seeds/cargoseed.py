@@ -22,20 +22,24 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
-base_path = "./src/seeds/odsFiles/Cadastro_Concurso.ods"
+base_path = "./seeds/odsFiles/Cargo.ods"
 sheet_index = 1
 df = read_ods(base_path , sheet_index)
 
-sql_query = """INSERT INTO "Cadastro" VALUES (DEFAULT ,%s, %s, %s, %s, %s)"""
+sql_query = """INSERT INTO "Cargos" VALUES (DEFAULT ,%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
 
 for ind in df.index:
   cursor.execute(sql_query, (
-    df['nome_candidato'][ind],
-    df['codg_cpf'][ind],
-    df['desc_sexo'][ind],
-    df['data_nascimento'][ind],
-    df['numr_estado_civil'][ind]
+    df['CO_IES_CURSO'][ind],
+    df['desc_cargo'][ind], 
+    df['desc_grau_academico'][ind],
+    df['desc_periodo'][ind],
+    df['desc_cidade'][ind],
+    df['codg_cargo'][ind],
+    df['NUMR_Vagas'][ind],
+    df['NUMR_Grupo'][ind],
+    df['DESC_REGIONAL'][ind]
   ))
   conn.commit()
   
-print("cadastro candidatos seeds executed")
+print("cargos seeds executed")
