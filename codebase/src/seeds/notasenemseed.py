@@ -22,7 +22,7 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
-base_path = "./seeds/odsFiles/notas_Enem.ods"
+base_path = "./src/seeds/odsFiles/notas_Enem.ods"
 sheet_index = 1
 df = read_ods(base_path , sheet_index)
 
