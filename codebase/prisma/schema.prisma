@@ -25,7 +25,7 @@ model Cargos {
 
 model Notas_Enem {
   id                      Int           @id @default(autoincrement())
-  numero_enem             Int
+  numero_enem             String
   cpf_candidato           String
   nome_candidato          String
   nota_ciencias_natureza  Float

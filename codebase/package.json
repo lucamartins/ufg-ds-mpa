@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "migrate-init": "npx prisma migrate dev --name init"
+    "migrate-init": "npx prisma migrate dev --name init",
+    "seeds": "./seeds/seedsRunner.sh"
   },
   "keywords": [],
   "author": "",
