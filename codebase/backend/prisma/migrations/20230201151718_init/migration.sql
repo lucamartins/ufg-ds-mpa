@@ -2,6 +2,16 @@
 CREATE TYPE "Sexo" AS ENUM ('M', 'F');
 
 -- CreateTable
+CREATE TABLE "Usuarios" (
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "nome" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+
+    CONSTRAINT "Usuarios_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Cargos" (
     "id" SERIAL NOT NULL,
     "co_ies_curso" INTEGER NOT NULL,
@@ -20,7 +30,7 @@ CREATE TABLE "Cargos" (
 -- CreateTable
 CREATE TABLE "Notas_Enem" (
     "id" SERIAL NOT NULL,
-    "numero_enem" INTEGER NOT NULL,
+    "numero_enem" TEXT NOT NULL,
     "cpf_candidato" TEXT NOT NULL,
     "nome_candidato" TEXT NOT NULL,
     "nota_ciencias_natureza" DOUBLE PRECISION NOT NULL,

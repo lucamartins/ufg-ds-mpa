@@ -10,6 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Usuarios {
+  id          String      @id @default(uuid())
+  email       String
+  nome        String
+  password    String
+}
+
 model Cargos {
   id                    Int           @id @default(autoincrement())
   co_ies_curso          Int
