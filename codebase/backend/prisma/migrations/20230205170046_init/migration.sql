@@ -3,7 +3,7 @@ CREATE TYPE "Sexo" AS ENUM ('M', 'F');
 
 -- CreateTable
 CREATE TABLE "Usuarios" (
-    "id" TEXT NOT NULL,
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "email" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
     "password" TEXT NOT NULL,

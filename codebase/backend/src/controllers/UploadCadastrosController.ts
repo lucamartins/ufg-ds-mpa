@@ -8,4 +8,4 @@ class UploadCadastrosController {
   }
 }
 
-export { UploadCadastrosController }
+export { UploadCadastrosController };

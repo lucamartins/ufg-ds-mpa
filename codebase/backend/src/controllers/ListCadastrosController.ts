@@ -11,4 +11,4 @@ class ListCadastrosController {
   }
 }
 
-export { ListCadastrosController }
+export { ListCadastrosController };
