@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "ts-node-esm ./src/server.ts",
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node-esm' src/server.ts",
     "migrate-init": "npx prisma migrate dev --name init",
     "seeds": "./seeds/seedsRunner.sh",
     "build": "tsc"

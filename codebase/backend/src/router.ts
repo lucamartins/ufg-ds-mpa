@@ -9,9 +9,9 @@ import {
 
 const router = Router();
 
-router.get('/cadastros', ListCadastrosController.handler);
-router.post('/uploads/cadastros', UploadCadastrosController.handler);
 router.post('/login', LoginController.handler);
 router.post('/register/user', validateAuthenticated, RegisterUserController.handler);
+router.post('/uploads/cadastros', validateAuthenticated, UploadCadastrosController.handler);
+router.get('/cadastros', validateAuthenticated, ListCadastrosController.handler);
 
 export { router };
