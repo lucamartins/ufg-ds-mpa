@@ -1,17 +1,16 @@
 import { Router } from 'express';
-import { validateAuthenticated } from './middlewares/validateAuthenticated.js';
+import { validateAuthentication } from './middlewares/validateAuthentication.js';
+import { validateAdminAuthentication } from './middlewares/validateAdminAuthentication.js'
 import { 
-  ListCadastrosController,
-  UploadCadastrosController,
   LoginController,
-  RegisterUserController
+  RegisterUserController,
+  UploadCandidatosController
 } from './controllers/index.js';
 
 const router = Router();
 
 router.post('/login', LoginController.handler);
-router.post('/register/user', validateAuthenticated, RegisterUserController.handler);
-router.post('/uploads/cadastros', validateAuthenticated, UploadCadastrosController.handler);
-router.get('/cadastros', validateAuthenticated, ListCadastrosController.handler);
+router.post('/register/user', validateAdminAuthentication, RegisterUserController.handler);
+router.post('/uploads/cadastros', validateAuthentication, UploadCandidatosController.handler);
 
 export { router };

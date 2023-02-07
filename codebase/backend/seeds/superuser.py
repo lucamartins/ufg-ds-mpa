@@ -23,11 +23,11 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
-sql_query = """INSERT INTO "Usuarios" VALUES (DEFAULT, %s, %s, %s)"""
+sql_query = """INSERT INTO "Usuarios" VALUES (DEFAULT, %s, %s, %s, %s)"""
 
 password = hashlib.sha256('passme1234'.encode('utf-8')).hexdigest()
 
-cursor.execute(sql_query, ('admin@admin.com', 'admin', password))
+cursor.execute(sql_query, ('admin@admin.com', 'admin', password, 'ADMIN'))
 conn.commit()
   
-print("cadastro candidatos seeds executed")
+print("superuser seed executed")

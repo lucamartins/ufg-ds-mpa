@@ -2,11 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken"
 
 interface IPayload {
-  email: string;
+  email: string
 }
 
 //Verifica se o usuário está logado.
-export function validateAuthenticated(request: Request, response: Response, next: NextFunction) {
+export function validateAuthentication(request: Request, response: Response, next: NextFunction) {
   //Receber o token
   const authToken = request.headers.authorization;
 
@@ -19,7 +19,7 @@ export function validateAuthenticated(request: Request, response: Response, next
     const { email } = verify(authToken, process.env.PRIVATE_KEY) as IPayload;
 
     //Recuperar informações do usuário.
-    request.body.adminEmail = email;
+    request.body.tokenEmail = email;
 
     return next();
   } catch (err) {

@@ -2,7 +2,6 @@
 # pip install python-decouple
 # pip install pandas_ods_reader
 
-from pandas_ods_reader import read_ods
 from decouple import config
 import psycopg2
 
@@ -22,19 +21,26 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
-base_path = "./seeds/odsFiles/programas.ods"
-sheet_index = 1
-df = read_ods(base_path , sheet_index)
-
 sql_query = """INSERT INTO "Programas" VALUES (DEFAULT ,%s, %s, %s, %s)"""
 
-for ind in df.index:
-  cursor.execute(sql_query, (
-    df['programa'][ind],
-    df['tipo_programa'][ind],
-    df['desc_programa'][ind],
-    df['CATEGORIA_INGRESSO'][ind],
-  ))
-  conn.commit()
+programas = [
+  [
+    3,
+    5,
+    'Programa UFGInclui - Vaga Extra aos candidatos autodeclarados indígenas',
+    'INDÍGENA'
+  ],
+  [
+    3,
+    6,
+    'Programa UFGInclui - Vaga Extra aos candidatos autodeclarados negros quilombolas',
+    'NEGRO QUILOMBOLA'
+  ]
+]
+
+for i in range(len(programas)):
+  cursor.execute(sql_query, (programas[i][0], programas[i][1], programas[i][2], programas[i][3]))
+
+conn.commit()
 
 print("programas enem seeds executed")

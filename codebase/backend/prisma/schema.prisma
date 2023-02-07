@@ -10,83 +10,82 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Roles {
+  ADMIN
+  ANALYST
+}
+
 model Usuarios {
-  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   email       String
   nome        String
   password    String
+  role        Roles
 }
 
 model Cargos {
-  id                    Int           @id @default(autoincrement())
-  co_ies_curso          Int
-  desc_cargo            String
-  desc_grau_academico   String
-  desc_periodo          String
-  desc_cidade           String
-  codg_cargo            Int
-  numr_vagas            Int
-  numr_grupo            Int
-  desc_regional         String
+  id              Int             @id @default(autoincrement())
+  candidato       Candidatos[]    
+
+  coIesCurso      Int
+  desc            String
+  grauAcademico   String
+  periodo         String
+  cidade          String
+  codg            Int             @unique
+  vagas           Int
+  grupo           Int
+  campus          String
 }
 
-model Notas_Enem {
+model NotasEnem {
   id                      Int           @id @default(autoincrement())
-  numero_enem             String
-  cpf_candidato           String
-  nome_candidato          String
-  nota_ciencias_natureza  Float
-  nota_ciencias_humanas   Float
-  nota_linguagens         Float
-  nota_matematica         Float
-  nota_redacao            Float
-  nota_total              Float
+  candidato               Candidatos?   
+
+  numero                  Int
+  notaCienciasNatureza    Float
+  notaCienciasHumanas     Float
+  notaLinguagens          Float
+  notaMatematica          Float
+  notaRedacao             Float
+  notaTotal               Float
 }
 
 model Programas {
-  id                      Int           @id @default(autoincrement())
-  codigo                  Int
-  tipo_programa           Int
-  desc_programa           String
-  categoria_ingresso      String
+  id                  Int       @id @default(autoincrement())
+  codigo              Int
+  tipo                Int
+  desc                String
+  categoriaIngresso   String    
 }
 
-model Cadastro {
-  id                  Int           @id @default(autoincrement())
-  nome                String
-  cpf                 String        @unique
-  sexo                Sexo
-  data_nascimento     DateTime
-  num_estado_civil    Int
+model Candidatos {
+  id                      Int                   @id @default(autoincrement())
+
+  cargoId                 Int           
+  cargo                   Cargos                @relation(fields: [cargoId], references: [codg])
+
+  notaEnemId              Int?                  @unique
+  notaEnem                NotasEnem?            @relation(fields: [notaEnemId], references: [id])
+
+  processoSeletivoId      String                @db.Uuid
+  processoSeletivo        ProcessosSeletivos    @relation(fields: [processoSeletivoId], references: [id])
+  
+  numCandidato            String                   @unique
+  cpf                     String                @unique
+  corRaca                 Int
+  formacaoEscolaPublica   Boolean
+  dataInscricao           DateTime
+  programa                Int
+  tipoPrograma            Int
+  nomeComunidade          String
+  anoEnem                 Int?
+  semestreIngresso       Int?
 }
 
-model Candidato {
-  id                          Int           @id @default(autoincrement())
-  numg_candidato              Int           @unique
-  cpf                         String        @unique
-  codigo_cargo                Int
-  cor_raca                    Int
-  formacao_escola_publica     Boolean
-  data_inscricao              DateTime
-  codg_situacao               Int
-  flag_inscricao              Int
-  programa                    Int
-  tipo_programa               Int
-  nome_comunidade             String
-  ano_enem                    Int
-  numr_enem                   Int
-  desc_instrumento            String
-  nota_final                  Float
-  valr_total_po               Float
-  valr_red                    Float
-  valr_pf                     Float
-  numr_classificacao          Int
-  nota_vhce                   Float
-  valr_nota_enem              Float
-  semestre_ingresso           Int
-}
+model ProcessosSeletivos {
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  candidatos    Candidatos[]    
 
-enum Sexo {
-  M
-  F
+  ano           Int
 }

@@ -12,7 +12,8 @@ export class UserRepository {
       },
       select: {
         email: true,
-        nome: true
+        nome: true,
+        role: true
       }
     });
   }
@@ -22,7 +23,8 @@ export class UserRepository {
       data: {
         email: email,
         nome: name,
-        password: hashPassword(password)
+        password: hashPassword(password),
+        role: 'ANALYST'
       },
       select: {
         email: true,

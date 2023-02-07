@@ -24,22 +24,36 @@ conn = psycopg2.connect(
 
 cursor = conn.cursor()
 
+sys.stdout.write('reading file ' + sys.argv[1] + '.ods\n')
+
 base_path = os.path.abspath('.') + '/src/odsFiles/' + sys.argv[1] + '.ods'
 sheet_index = 1
 df = read_ods(base_path , sheet_index)
 
-sql_query = """INSERT INTO "Cadastro" VALUES (DEFAULT ,%s, %s, %s, %s, %s)"""
+sql_query = """INSERT INTO "Candidatos" VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+
+sys.stdout.write('updating candidatos table')
 
 for ind in df.index:
+  formacaoEscolaPublica = False
+
+  if df['formacaoEscolaPublica'][ind] == '1':
+    formacaoEscolaPublica = True
+
   cursor.execute(sql_query, (
-    df['nome_candidato'][ind],
-    df['codg_cpf'][ind],
-    df['desc_sexo'][ind],
-    df['data_nascimento'][ind],
-    df['numr_estado_civil'][ind]
+    df['cargoId'][ind],
+    None,
+    sys.argv[2],
+    df['numCandidato'][ind],
+    df['cpf'][ind],
+    df['corRaca'][ind],
+    formacaoEscolaPublica,
+    df['dataInscricao'][ind],
+    df['programa'][ind],
+    df['tipoPrograma'][ind],
+    df['nomeComunidade'][ind],
+    df['anoEnem'][ind]
   ))
   conn.commit()
-
-print('reading file ' + sys.argv[1] + '.ods')
 
 sys.stdout.flush()
