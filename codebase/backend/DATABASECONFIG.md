@@ -36,7 +36,7 @@ Este arquivo é um guia rápido de como configurar uma banco de dados local para
     ```
 
     ```
-    postgres=# GRANT ALL PRIVILAGES ON DATABASE ufginclui TO user_name;
+    postgres=# GRANT ALL PRIVILEGES ON DATABASE ufginclui TO user_name;
     ```
 
 4. Configure um novo arquivo *.env* apartir do arquivo *.env.example*
