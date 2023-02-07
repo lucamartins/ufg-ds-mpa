@@ -1,4 +1,7 @@
 # pip install psycopg2
+## dependências:
+## sudo apt install libpq-dev python3-dev
+
 # pip install python-decouple
 # pip install pandas_ods_reader
 
