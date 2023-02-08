@@ -1,12 +1,34 @@
 import { HomeLayout } from "@/app/layouts";
+import {
+  HomePage,
+  AddSelectiveProcessPage,
+  SelectiveProcessDetailsPage,
+} from "@/app/pages";
 import { createBrowserRouter } from "react-router-dom";
-import { homeRoutes } from "./home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
-    children: homeRoutes,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "create",
+        element: <AddSelectiveProcessPage />,
+      },
+      {
+        path: "details/:id",
+        element: <SelectiveProcessDetailsPage />,
+      },
+    ],
+  },
+  {
+    path: "auth",
+    // element: <AuthLayout />,
+    // children: authRoutes
   },
 ]);
 
