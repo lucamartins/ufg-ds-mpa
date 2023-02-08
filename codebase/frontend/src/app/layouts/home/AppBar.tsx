@@ -53,7 +53,8 @@ const ResponsiveAppBar: React.FC = () => {
     const index = tabNameMapper.findIndex(
       (tab) => tab.route === location.pathname
     );
-    setTabsLocationMapper(index);
+    const indexFallback = index === -1 ? 0 : index;
+    setTabsLocationMapper(indexFallback);
   }, [location]);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -62,7 +63,7 @@ const ResponsiveAppBar: React.FC = () => {
 
   return (
     <AppBar position="static" color="transparent">
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
             <img src={LogoIv} alt="Logo Instituto Verbena" height={25} />
