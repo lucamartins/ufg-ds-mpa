@@ -34,7 +34,7 @@ const LoginPage = () => {
       const { token, ...user } = res.data;
       setAccessToken(token);
       setUser(user);
-      openSnackbar("Autenticado no sistema", "success");
+      openSnackbar(`Bem vindo novamente, ${user.nome}!`, "success");
       navigate("/");
     } catch (error) {
       openSnackbar("Falha durante autenticação", "error");
