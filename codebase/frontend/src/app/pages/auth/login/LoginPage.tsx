@@ -6,8 +6,8 @@ import { useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("admin@admin.com");
-  const [password, setPassword] = useState("passme1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { setUser, setAccessToken } = useAuthStore(
     ({ setUser, setAccessToken }) => ({
       setUser,
