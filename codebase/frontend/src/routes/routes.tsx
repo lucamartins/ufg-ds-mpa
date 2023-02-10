@@ -1,8 +1,9 @@
-import { HomeLayout } from "@/app/layouts";
+import { AuthLayout, HomeLayout } from "@/app/layouts";
 import {
   HomePage,
   AddSelectiveProcessPage,
   SelectiveProcessDetailsPage,
+  LoginPage,
 } from "@/app/pages";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -27,8 +28,13 @@ const router = createBrowserRouter([
   },
   {
     path: "auth",
-    // element: <AuthLayout />,
-    // children: authRoutes
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+    ],
   },
 ]);
 
