@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Roles {
+  ADMIN
+  ANALYST
+}
+
+model Usuarios {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email       String
+  nome        String
+  password    String
+  role        Roles
+}
+
+model Cargos {
+  id              Int             @id @default(autoincrement())
+  candidato       Candidatos[]    
+
+  coIesCurso      Int
+  desc            String
+  grauAcademico   String
+  periodo         String
+  cidade          String
+  codg            Int             @unique
+  vagas           Int
+  grupo           Int
+  campus          String
+}
+
+model NotasEnem {
+  id                      Int           @id @default(autoincrement())
+  candidato               Candidatos?   
+
+  numero                  Int
+  notaCienciasNatureza    Float
+  notaCienciasHumanas     Float
+  notaLinguagens          Float
+  notaMatematica          Float
+  notaRedacao             Float
+  notaTotal               Float
+}
+
+model Programas {
+  id                  Int       @id @default(autoincrement())
+  codigo              Int
+  tipo                Int
+  desc                String
+  categoriaIngresso   String    
+}
+
+model Candidatos {
+  id                      Int                   @id @default(autoincrement())
+
+  cargoId                 Int           
+  cargo                   Cargos                @relation(fields: [cargoId], references: [codg])
+
+  notaEnemId              Int?                  @unique
+  notaEnem                NotasEnem?            @relation(fields: [notaEnemId], references: [id])
+
+  processoSeletivoId      String                @db.Uuid
+  processoSeletivo        ProcessosSeletivos    @relation(fields: [processoSeletivoId], references: [id])
+  
+  numCandidato            String                   @unique
+  cpf                     String                @unique
+  corRaca                 Int
+  formacaoEscolaPublica   Boolean
+  dataInscricao           DateTime
+  programa                Int
+  tipoPrograma            Int
+  nomeComunidade          String
+  anoEnem                 Int?
+  semestreIngresso       Int?
+}
+
+model ProcessosSeletivos {
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  candidatos    Candidatos[]    
+
+  ano           Int
+}

@@ -1,0 +1,1 @@
+for f in ./seeds/*.py; do python3 "$f"; done 
