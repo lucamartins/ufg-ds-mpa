@@ -9,7 +9,9 @@ const AuthProvider: FC = () => {
   useEffect(() => {
     if (!accessToken) {
       navigate("/auth/login");
+      return;
     }
+    navigate("/");
   }, [accessToken]);
 
   return (
