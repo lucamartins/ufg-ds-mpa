@@ -33,7 +33,9 @@ const ResponsiveAppBar: React.FC = () => {
   const navigate = useNavigate();
   const [tabsLocationMapper, setTabsLocationMapper] = useState<number>();
   const logout = useAuthStore((state) => state.logout);
-  const openSnackbar = useAppStore((state) => state.openSnackbar);
+  const { openSnackbar, openAccModal } = useAppStore(
+    ({ openSnackbar, openAccModal }) => ({ openSnackbar, openAccModal })
+  );
 
   useEffect(() => {
     const index = tabNameMapper.findIndex(
@@ -71,7 +73,7 @@ const ResponsiveAppBar: React.FC = () => {
     {
       title: "Minha Conta",
       action: () => {
-        navigate("/account");
+        openAccModal();
         handleCloseUserMenu();
       },
     },
