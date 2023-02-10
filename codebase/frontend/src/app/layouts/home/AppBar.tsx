@@ -68,7 +68,13 @@ const ResponsiveAppBar: React.FC = () => {
   };
 
   const settings = [
-    { title: "Minha Conta", action: () => navigate("/account") },
+    {
+      title: "Minha Conta",
+      action: () => {
+        navigate("/account");
+        handleCloseUserMenu();
+      },
+    },
     { title: "Sair", action: handleLogout },
   ];
 
