@@ -5,37 +5,26 @@ import {
   SelectiveProcessDetailsPage,
   LoginPage,
 } from "@/app/pages";
-import { createBrowserRouter } from "react-router-dom";
+import { AuthProvider } from "@/app/shared/providers";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomeLayout />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />,
-      },
-      {
-        path: "create",
-        element: <AddSelectiveProcessPage />,
-      },
-      {
-        path: "details/:id",
-        element: <SelectiveProcessDetailsPage />,
-      },
-    ],
-  },
-  {
-    path: "auth",
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "login",
-        element: <LoginPage />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<AuthProvider />}>
+      <Route path="/" element={<HomeLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="create" element={<AddSelectiveProcessPage />} />
+        <Route path="details/:id" element={<SelectiveProcessDetailsPage />} />
+      </Route>
+      <Route path="auth" element={<AuthLayout />}>
+        <Route path="login" element={<LoginPage />} />
+      </Route>
+    </Route>
+  )
+);
 
 export default router;
