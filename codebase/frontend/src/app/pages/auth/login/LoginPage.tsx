@@ -6,8 +6,12 @@ import { useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(
+    import.meta.env.VITE_AUTO_LOGIN_EMAIL || ""
+  );
+  const [password, setPassword] = useState(
+    import.meta.env.VITE_AUTO_LOGIN_PASSWORD || ""
+  );
   const { setUser, setAccessToken } = useAuthStore(
     ({ setUser, setAccessToken }) => ({
       setUser,
