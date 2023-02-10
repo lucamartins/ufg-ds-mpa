@@ -6,6 +6,6 @@ export interface LoginServiceRequest {
 export interface LoginServiceResponse {
   email: string;
   nome: string;
-  role: string;
+  role: "ADMIN" | "ANALYST";
   token: string;
 }

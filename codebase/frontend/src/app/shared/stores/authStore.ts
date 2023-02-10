@@ -4,8 +4,7 @@ interface AuthStore {
   user: {
     email: string;
     nome: string;
-    // TODO: implement role type
-    role: string;
+    role: "ADMIN" | "ANALYST";
   } | null;
   accessToken: string | null;
   setUser: (user: AuthStore["user"]) => void;
