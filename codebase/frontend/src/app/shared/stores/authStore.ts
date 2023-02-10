@@ -3,7 +3,7 @@ import { create } from "zustand";
 interface AuthStore {
   user: {
     email: string;
-    name: string;
+    nome: string;
     // TODO: implement role type
     role: string;
   } | null;
