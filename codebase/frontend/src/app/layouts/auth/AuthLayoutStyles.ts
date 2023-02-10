@@ -12,7 +12,7 @@ export const LeftCol = styled(Col)`
 `;
 
 export const RightCol = styled(Col)`
-  width: 100%;
+  width: 55vw;
   height: 100vh;
   background-color: ${({ theme }) => theme.palette.background.default};
   justify-content: center;
