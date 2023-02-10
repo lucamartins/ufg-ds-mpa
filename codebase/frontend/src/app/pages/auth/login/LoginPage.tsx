@@ -1,3 +1,4 @@
+import { useApi } from "@/app/shared/hooks";
 import { useAppStore, useAuthStore } from "@/app/shared/stores";
 import { Col } from "@/app/shared/styled";
 import { loginService } from "@/services";
@@ -20,6 +21,7 @@ const LoginPage = () => {
   );
   const openSnackbar = useAppStore((state) => state.openSnackbar);
   const navigate = useNavigate();
+  const api = useApi();
 
   const handleInputFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -34,7 +36,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     try {
-      const res = await loginService({ email, password });
+      const res = await loginService(api, { email, password });
       const { token, ...user } = res.data;
       setAccessToken(token);
       setUser(user);
