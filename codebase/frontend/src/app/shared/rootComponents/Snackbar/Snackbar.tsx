@@ -22,6 +22,7 @@ const CustomSnackbar = () => {
         onClose={closeSnackbar}
         sx={{ width: "100%" }}
         severity={snackbarType}
+        variant="filled"
       >
         {snackbarText}
       </Alert>
