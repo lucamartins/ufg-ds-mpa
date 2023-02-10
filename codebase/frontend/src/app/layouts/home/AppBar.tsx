@@ -14,6 +14,7 @@ import { Tab } from "@mui/material";
 import LogoIv from "/VERBENA-UFG.png";
 import { TabsStyled } from "@/app/shared/styled";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppStore, useAuthStore } from "@/app/shared/stores";
 
 const tabNameMapper = [
   {
@@ -24,11 +25,23 @@ const tabNameMapper = [
 ];
 
 const pages = ["Processos Seletivos", "Criar novo PS"];
-const settings = ["Minha Conta", "Sair"];
 
 const ResponsiveAppBar: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [tabsLocationMapper, setTabsLocationMapper] = useState<number>();
+  const logout = useAuthStore((state) => state.logout);
+  const openSnackbar = useAppStore((state) => state.openSnackbar);
+
+  useEffect(() => {
+    const index = tabNameMapper.findIndex(
+      (tab) => tab.route === location.pathname
+    );
+    const indexFallback = index === -1 ? 0 : index;
+    setTabsLocationMapper(indexFallback);
+  }, [location]);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -45,21 +58,19 @@ const ResponsiveAppBar: React.FC = () => {
     setAnchorElUser(null);
   };
 
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [tabsLocationMapper, setTabsLocationMapper] = useState<number>();
-
-  useEffect(() => {
-    const index = tabNameMapper.findIndex(
-      (tab) => tab.route === location.pathname
-    );
-    const indexFallback = index === -1 ? 0 : index;
-    setTabsLocationMapper(indexFallback);
-  }, [location]);
-
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     navigate(tabNameMapper[newValue].route);
   };
+
+  const handleLogout = () => {
+    logout();
+    openSnackbar("Usuário deslogado");
+  };
+
+  const settings = [
+    { title: "Minha Conta", action: () => navigate("/account") },
+    { title: "Sair", action: handleLogout },
+  ];
 
   return (
     <AppBar position="static" color="transparent">
@@ -128,7 +139,7 @@ const ResponsiveAppBar: React.FC = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            <Tooltip title="Abrir Configurações">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
@@ -150,8 +161,8 @@ const ResponsiveAppBar: React.FC = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.title} onClick={setting.action}>
+                  <Typography textAlign="center">{setting.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
