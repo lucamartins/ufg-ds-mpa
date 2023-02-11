@@ -1,4 +1,4 @@
 export * from "./home";
-export * from "./addSelectiveProcess";
+export * from "./settings";
 export * from "./selectiveProcessDetails";
 export * from "./auth";
