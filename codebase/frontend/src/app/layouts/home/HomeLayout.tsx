@@ -8,7 +8,7 @@ const HomeLayout: FC = () => {
     <>
       <AppBar />
       <Container maxWidth="lg">
-        <Box p="25px 12.5px">
+        <Box p="32px 12.5px">
           <Outlet />
         </Box>
       </Container>

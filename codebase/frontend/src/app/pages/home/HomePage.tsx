@@ -1,4 +1,5 @@
 import {
+  Button,
   CircularProgress,
   List,
   ListItemButton,
@@ -13,6 +14,7 @@ import { useEffect, useState } from "react";
 import { getAllProcessesService } from "@/services";
 import { SelectiveProcess } from "@/services/selective-processes";
 import { Col, Row } from "@/app/shared/styled";
+import AddIcon from "@mui/icons-material/Add";
 
 const HomePage = () => {
   const [selectiveProcesses, setSelectiveProcesses] = useState<
@@ -30,7 +32,12 @@ const HomePage = () => {
 
   return (
     <>
-      <Typography variant="h4">Processos Seletivos</Typography>
+      <Row justifyContent="space-between" alignItems="center">
+        <Typography variant="h4">Processos Seletivos</Typography>
+        <Button variant="contained" endIcon={<AddIcon />}>
+          Novo PS
+        </Button>
+      </Row>
       <List>
         {selectiveProcesses &&
           selectiveProcesses.map((process) => (

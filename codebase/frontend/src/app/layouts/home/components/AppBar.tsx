@@ -21,7 +21,7 @@ const tabNameMapper = [
     route: "/",
     name: "Processos Seletivos",
   },
-  { route: "/create", name: "Criar novo PS" },
+  { route: "/settings", name: "Configurações" },
 ];
 
 const pages = ["Processos Seletivos", "Criar novo PS"];

@@ -1,7 +1,7 @@
 import { AuthLayout, HomeLayout } from "@/app/layouts";
 import {
   HomePage,
-  AddSelectiveProcessPage,
+  SettingsPage,
   SelectiveProcessDetailsPage,
   LoginPage,
 } from "@/app/pages";
@@ -17,7 +17,7 @@ const router = createBrowserRouter(
     <Route element={<AuthProvider />}>
       <Route path="/" element={<HomeLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="create" element={<AddSelectiveProcessPage />} />
+        <Route path="settings" element={<SettingsPage />} />
         <Route path="details/:id" element={<SelectiveProcessDetailsPage />} />
       </Route>
       <Route path="auth" element={<AuthLayout />}>

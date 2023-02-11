@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { FC } from "react";
 
-const AddSelectiveProcessPage: FC = () => {
+const SettingsPage: FC = () => {
   return (
     <>
       <Typography>Criar processo seletivo...</Typography>
@@ -9,4 +9,4 @@ const AddSelectiveProcessPage: FC = () => {
   );
 };
 
-export default AddSelectiveProcessPage;
+export default SettingsPage;
