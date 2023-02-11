@@ -1,7 +1,7 @@
 import { Row } from "@/app/shared/styled";
 import { Button, Typography } from "@mui/material";
 import { FC } from "react";
-import { AnalystUsersList } from "./components";
+import { AddAnalystDialog, AnalystUsersList } from "./components";
 import AddIcon from "@mui/icons-material/Add";
 
 const SettingsPage: FC = () => {
@@ -14,6 +14,7 @@ const SettingsPage: FC = () => {
         </Button>
       </Row>
       <AnalystUsersList />
+      <AddAnalystDialog />
     </>
   );
 };
