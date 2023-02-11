@@ -7,6 +7,7 @@ import {
   ListItemText,
   Paper,
 } from "@mui/material";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 const mockDataAnalystUsers: GetAnalystUsersResponse = [
   {
@@ -35,7 +36,9 @@ const AnalystUsersList = () => {
             <ListItem key={user.id}>
               <ListItemText>{user.name}</ListItemText>
               <ListItemText>{user.email}</ListItemText>
-              <Button variant="outlined">Excluir Acesso</Button>
+              <Button variant="outlined" endIcon={<DeleteOutlineIcon />}>
+                Excluir Acesso
+              </Button>
             </ListItem>
             {ind !== mockDataAnalystUsers.length - 1 && <Divider />}
           </>
