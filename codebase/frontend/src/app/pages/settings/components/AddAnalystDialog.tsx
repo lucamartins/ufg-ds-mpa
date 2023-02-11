@@ -1,4 +1,6 @@
+import { useApi, useSnackbar } from "@/app/shared/hooks";
 import { Col } from "@/app/shared/styled";
+import { registerAnalystService } from "@/services/users";
 import {
   Button,
   Dialog,
@@ -9,7 +11,10 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-const AddAnalystDialog = () => {
+const AddAnalystDialog = ({ handleClose }: { handleClose: () => void }) => {
+  const api = useApi();
+  const { openSnackbar } = useSnackbar();
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -22,13 +27,27 @@ const AddAnalystDialog = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
+
+    if (form.password !== form.passwordConfirmation) {
+      openSnackbar("As senhas não conferem", "error");
+      return;
+    }
+
+    const { passwordConfirmation, ...data } = form;
+
+    try {
+      const res = await registerAnalystService(api, data);
+      openSnackbar("Cadastro realizado com sucesso", "success");
+    } catch (err) {
+      openSnackbar("Erro ao cadastrar analista", "error");
+    }
   };
 
   return (
     <>
-      <Dialog open={true} maxWidth="sm" fullWidth>
+      <Dialog open={true} maxWidth="sm" fullWidth onClose={handleClose}>
         <Col component="form" onSubmit={handleSubmit}>
           <DialogTitle>Cadastrar Novo Analista</DialogTitle>
           <DialogContent dividers>
@@ -71,7 +90,9 @@ const AddAnalystDialog = () => {
             </Col>
           </DialogContent>
           <DialogActions sx={{ p: "14px 8px" }}>
-            <Button variant="outlined">Cancelar</Button>
+            <Button variant="outlined" onClick={handleClose}>
+              Cancelar
+            </Button>
             <Button variant="contained" type="submit">
               Cadastrar
             </Button>
