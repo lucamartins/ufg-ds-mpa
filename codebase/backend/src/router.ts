@@ -10,9 +10,9 @@ import {
 
 const router = Router();
 
-router.post('/login', LoginController.handler);
-router.post('/register/user', validateAdminAuthentication, RegisterUserController.handler);
-router.post('/uploads/cadastros', validateAuthentication, UploadCandidatosController.handler);
-router.get('/processes', validateAuthentication, ListProcessesController.handler);
+router.post('/mpa/login', LoginController.handler);
+router.post('/mpa/register/user', validateAdminAuthentication, RegisterUserController.handler);
+router.post('/mpa/uploads/cadastros', validateAuthentication, UploadCandidatosController.handler);
+router.get('/mpa/processes', validateAuthentication, ListProcessesController.handler);
 
 export { router };
