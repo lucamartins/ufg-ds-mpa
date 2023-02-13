@@ -15,24 +15,19 @@ export function validateAdminAuthentication(
   const authToken = bearerHeader.split(' ')[1];
 
   //Validar se o token está preenchido
-  if (!authToken || !authToken.startsWith("Bearer ")) {
-    return response.status(401).json({ message: "token invalido" });
+  if (!authToken) {
+    return response.status(401).json({ message: 'token invalido' });
   }
 
   try {
-    const { role } = verify(
-      authToken.substring(7),
-      process.env.PRIVATE_KEY
-    ) as IPayload;
+    const { role } = verify(authToken, process.env.PRIVATE_KEY) as IPayload;
 
-    if (role !== "ADMIN") {
-      return response
-        .status(401)
-        .json({ message: "usuário não é administrador" });
+    if (role !== 'ADMIN') {
+      return response.status(401).json({ message: 'usuário não é administrador' });
     }
 
     return next();
   } catch (err) {
-    return response.status(401).json({ message: "token invalido" });
+    return response.status(401).json({ message: 'token invalido' });
   }
 }

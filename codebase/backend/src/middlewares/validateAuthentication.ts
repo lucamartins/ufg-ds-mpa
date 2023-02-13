@@ -16,21 +16,18 @@ export function validateAuthentication(
   const authToken = bearerHeader.split(' ')[1];
 
   //Validar se o token está preenchido
-  if (!authToken || !authToken.startsWith("Bearer ")) {
-    return response.status(401).json({ message: "token invalido" });
+  if (!authToken) {
+    return response.status(401).json({ message: 'token invalido' });
   }
 
   try {
-    const { email } = verify(
-      authToken.substring(7),
-      process.env.PRIVATE_KEY
-    ) as IPayload;
+    const { email } = verify(authToken, process.env.PRIVATE_KEY) as IPayload;
 
     //Recuperar informações do usuário.
     request.body.tokenEmail = email;
 
     return next();
   } catch (err) {
-    return response.status(401).json({ message: "token invalido" });
+    return response.status(401).json({ message: 'token invalido' });
   }
 }
