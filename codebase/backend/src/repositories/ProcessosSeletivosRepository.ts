@@ -17,4 +17,17 @@ export class ProcessosSeletivosRepository {
       }
     });
   }
+
+  async checkYearAvailability(ano: number) {
+    const res = await prisma.processosSeletivos.findFirst({
+      where: {
+        ano: ano
+      }
+    });
+
+    if (res) 
+      return true;
+    
+    return false;
+  }
 }

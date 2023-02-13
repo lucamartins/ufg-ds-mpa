@@ -12,9 +12,9 @@ class RegisterProcessController {
       if (!ano || !inicio || !termino)
         throw new ApiErrors(400, 'required atribute is missing');
 
-      registerProcessService.execute(Number(ano), inicio, termino);
+      await registerProcessService.execute(Number(ano), inicio, termino);
 
-      return response.status(200).send();
+      return response.status(200).json({ message: 'new process successfully registered'});
     } catch (err) {
       next(err);
     }

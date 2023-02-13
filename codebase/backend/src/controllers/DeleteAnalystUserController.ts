@@ -13,12 +13,16 @@ class DeleteAnalystUserController {
     try {
       const user = await findUserById.execute(id);
 
+      if (!user) {
+        throw new ApiErrors(400, 'invalid id');
+      }
+
       if (user.role === 'ADMIN')
         throw new ApiErrors(401, 'not allowed to delete an amdin user');
 
       await deleteUserService.execute(id);
 
-      return response.status(200).send();
+      return response.status(200).json({message: 'analyst user successfully deleted'});
     } catch(err) {
       next(err);
     }

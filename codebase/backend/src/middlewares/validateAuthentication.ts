@@ -8,7 +8,8 @@ interface IPayload {
 //Verifica se o usuário está logado.
 export function validateAuthentication(request: Request, response: Response, next: NextFunction) {
   //Receber o token
-  const authToken = request.headers.authorization;
+  const bearerHeader = request.headers.authorization as string;
+  const authToken = bearerHeader.split(' ')[1];
 
   //Validar se o token está preenchido
   if (!authToken) {

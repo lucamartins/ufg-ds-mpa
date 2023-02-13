@@ -7,7 +7,8 @@ interface IPayload {
 
 export function validateAdminAuthentication(request: Request, response: Response, next: NextFunction) {
   //Receber o token
-  const authToken = request.headers.authorization;
+  const bearerHeader = request.headers.authorization as string;
+  const authToken = bearerHeader.split(' ')[1];
 
   //Validar se o token está preenchido
   if (!authToken) {
