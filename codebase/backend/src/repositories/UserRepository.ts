@@ -45,4 +45,33 @@ export class UserRepository {
     
     return false;
   }
+
+  async listAnalystUsers() {
+    return await prisma.usuarios.findMany({
+      where: {
+        role: 'ANALYST'
+      },
+      select: {
+        id: true,
+        nome: true,
+        email: true,
+      }
+    });
+  }
+
+  async deleteUser(id: string) {
+    return await prisma.usuarios.delete({
+      where: {
+        id: id
+      }
+    });
+  }
+
+  async findUserById(id: string) {
+    return await prisma.usuarios.findFirst({
+      where: {
+        id: id
+      }
+    })
+  }
 }

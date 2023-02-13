@@ -21,7 +21,7 @@ class LoginController {
         throw new ApiErrors(400, 'required atribute is missing');
 
       const user:User = await loginService.execute(email, password);
-      const token = jwt.sign({ email: user.email, role: user.role }, process.env.PRIVATE_KEY, { expiresIn: 3000 });
+      const token = jwt.sign({ email: user.email, role: user.role }, process.env.PRIVATE_KEY);
       user.token = token;
   
       return response.status(200).json(user);

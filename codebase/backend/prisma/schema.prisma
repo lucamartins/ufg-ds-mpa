@@ -88,4 +88,7 @@ model ProcessosSeletivos {
   candidatos    Candidatos[]    
 
   ano           Int
+  inicio        DateTime
+  termino       DateTime
+  etapa         Int
 }

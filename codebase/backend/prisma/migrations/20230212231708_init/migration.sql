@@ -77,6 +77,9 @@ CREATE TABLE "Candidatos" (
 CREATE TABLE "ProcessosSeletivos" (
     "id" UUID NOT NULL DEFAULT gen_random_uuid(),
     "ano" INTEGER NOT NULL,
+    "inicio" TIMESTAMP(3) NOT NULL,
+    "termino" TIMESTAMP(3) NOT NULL,
+    "etapa" INTEGER NOT NULL,
 
     CONSTRAINT "ProcessosSeletivos_pkey" PRIMARY KEY ("id")
 );

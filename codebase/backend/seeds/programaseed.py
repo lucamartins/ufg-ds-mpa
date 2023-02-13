@@ -46,4 +46,4 @@ for i in range(len(programas)):
 
 conn.commit()
 
-print("programas enem seeds executed")
+print("programas seeds executed")
