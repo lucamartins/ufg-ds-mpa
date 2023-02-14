@@ -6,6 +6,7 @@ import {
   ListItem,
   ListItemText,
   Paper,
+  Typography,
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useApi } from "@/app/shared/hooks";
@@ -24,22 +25,31 @@ const AnalystUsersList = () => {
   }, []);
 
   return (
-    <Paper variant="outlined">
-      <List>
-        {analysts.map((user, ind) => (
-          <>
-            <ListItem key={user.id}>
-              <ListItemText>{user.nome}</ListItemText>
-              <ListItemText>{user.email}</ListItemText>
-              <Button variant="outlined" endIcon={<DeleteOutlineIcon />}>
-                Excluir Acesso
-              </Button>
-            </ListItem>
-            {ind !== analysts.length - 1 && <Divider />}
-          </>
-        ))}
-      </List>
-    </Paper>
+    <>
+      {!!analysts.length && (
+        <Paper variant="outlined">
+          <List>
+            {analysts.map((user, ind) => (
+              <>
+                <ListItem key={user.id}>
+                  <ListItemText>{user.nome}</ListItemText>
+                  <ListItemText>{user.email}</ListItemText>
+                  <Button variant="outlined" endIcon={<DeleteOutlineIcon />}>
+                    Excluir Acesso
+                  </Button>
+                </ListItem>
+                {ind !== analysts.length - 1 && <Divider />}
+              </>
+            ))}
+          </List>
+        </Paper>
+      )}
+      {!analysts.length && (
+        <Typography variant="body1">
+          Nenhum usuário analista encontrado.
+        </Typography>
+      )}
+    </>
   );
 };
 
