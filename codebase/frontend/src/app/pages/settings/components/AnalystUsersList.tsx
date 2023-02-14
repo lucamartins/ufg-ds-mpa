@@ -58,6 +58,7 @@ const AnalystUsersList = ({
     try {
       await deleteAnalystService(api, analystId);
       openSnackbar("Analista excluído com sucesso", "success");
+      setConfirmDeletionModalOpen(false);
       refetch();
     } catch (err) {
       openSnackbar("Falha ao excluir analista", "error");
