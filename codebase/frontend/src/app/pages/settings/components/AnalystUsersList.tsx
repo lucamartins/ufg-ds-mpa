@@ -13,7 +13,7 @@ import { useApi, useSnackbar } from "@/app/shared/hooks";
 import { useEffect, useState } from "react";
 import { getAnalytsUsersService } from "@/services/users/get";
 
-const AnalystUsersList = () => {
+const AnalystUsersList = ({ refetch }: { refetch: number }) => {
   const api = useApi();
   const [analysts, setAnalysts] = useState<GetAnalystUsersResponse>([]);
   const { openSnackbar } = useSnackbar();
@@ -27,7 +27,7 @@ const AnalystUsersList = () => {
         openSnackbar("Falha ao obter analistas", "error");
       }
     })();
-  }, []);
+  }, [refetch]);
 
   return (
     <>

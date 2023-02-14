@@ -1,15 +1,20 @@
 import { Row } from "@/app/shared/styled";
 import { Button, Typography } from "@mui/material";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { AddAnalystDialog, AnalystUsersList } from "./components";
 import AddIcon from "@mui/icons-material/Add";
 
 const SettingsPage: FC = () => {
   const [isAddAnalystDialogOpen, setIsAddAnalystDialogOpen] = useState(false);
+  const [refetch, setRefetch] = useState(0);
 
   const handleAddAnalystDialogToggle = () => {
     setIsAddAnalystDialogOpen(!isAddAnalystDialogOpen);
   };
+
+  useEffect(() => {
+    setRefetch(refetch + 1);
+  }, [isAddAnalystDialogOpen]);
 
   return (
     <>
@@ -23,7 +28,7 @@ const SettingsPage: FC = () => {
           Cadastrar Analista
         </Button>
       </Row>
-      <AnalystUsersList />
+      <AnalystUsersList refetch={refetch} />
       {isAddAnalystDialogOpen && (
         <AddAnalystDialog handleClose={handleAddAnalystDialogToggle} />
       )}

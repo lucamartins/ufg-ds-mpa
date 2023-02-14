@@ -40,6 +40,7 @@ const AddAnalystDialog = ({ handleClose }: { handleClose: () => void }) => {
     try {
       const res = await registerAnalystService(api, data);
       openSnackbar("Cadastro realizado com sucesso", "success");
+      handleClose();
     } catch (err) {
       openSnackbar("Erro ao cadastrar analista", "error");
     }
