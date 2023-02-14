@@ -1,4 +1,4 @@
-interface AnalystUser {
+export interface AnalystUser {
   id: string | number;
   email: string;
   nome: string;

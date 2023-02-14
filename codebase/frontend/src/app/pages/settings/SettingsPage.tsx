@@ -6,14 +6,15 @@ import AddIcon from "@mui/icons-material/Add";
 
 const SettingsPage: FC = () => {
   const [isAddAnalystDialogOpen, setIsAddAnalystDialogOpen] = useState(false);
-  const [refetch, setRefetch] = useState(0);
+  const [shouldRefetch, setShouldRefetch] = useState(0);
+  const refetch = () => setShouldRefetch(shouldRefetch + 1);
 
   const handleAddAnalystDialogToggle = () => {
     setIsAddAnalystDialogOpen(!isAddAnalystDialogOpen);
   };
 
   useEffect(() => {
-    setRefetch(refetch + 1);
+    refetch();
   }, [isAddAnalystDialogOpen]);
 
   return (
@@ -28,7 +29,7 @@ const SettingsPage: FC = () => {
           Cadastrar Analista
         </Button>
       </Row>
-      <AnalystUsersList refetch={refetch} />
+      <AnalystUsersList refetch={refetch} shouldRefetch={shouldRefetch} />
       {isAddAnalystDialogOpen && (
         <AddAnalystDialog handleClose={handleAddAnalystDialogToggle} />
       )}
