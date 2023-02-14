@@ -8,39 +8,34 @@ import {
   Paper,
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-
-const mockDataAnalystUsers: GetAnalystUsersResponse = [
-  {
-    id: 1,
-    email: "joao@mail.com",
-    name: "Joao Da Silva",
-  },
-  {
-    id: 2,
-    email: "joao2@mail.com",
-    name: "Joao Da Penha",
-  },
-  {
-    id: 3,
-    email: "joao3@mail.com",
-    name: "Joao Da Fonseca",
-  },
-];
+import { useApi } from "@/app/shared/hooks";
+import { useEffect, useState } from "react";
+import { getAnalytsUsersService } from "@/services/users/get";
 
 const AnalystUsersList = () => {
+  const api = useApi();
+  const [analysts, setAnalysts] = useState<GetAnalystUsersResponse>([]);
+
+  useEffect(() => {
+    (async () => {
+      const res = await getAnalytsUsersService(api);
+      setAnalysts(res.data);
+    })();
+  }, []);
+
   return (
     <Paper variant="outlined">
       <List>
-        {mockDataAnalystUsers.map((user, ind) => (
+        {analysts.map((user, ind) => (
           <>
             <ListItem key={user.id}>
-              <ListItemText>{user.name}</ListItemText>
+              <ListItemText>{user.nome}</ListItemText>
               <ListItemText>{user.email}</ListItemText>
               <Button variant="outlined" endIcon={<DeleteOutlineIcon />}>
                 Excluir Acesso
               </Button>
             </ListItem>
-            {ind !== mockDataAnalystUsers.length - 1 && <Divider />}
+            {ind !== analysts.length - 1 && <Divider />}
           </>
         ))}
       </List>
