@@ -9,18 +9,23 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { useApi } from "@/app/shared/hooks";
+import { useApi, useSnackbar } from "@/app/shared/hooks";
 import { useEffect, useState } from "react";
 import { getAnalytsUsersService } from "@/services/users/get";
 
 const AnalystUsersList = () => {
   const api = useApi();
   const [analysts, setAnalysts] = useState<GetAnalystUsersResponse>([]);
+  const { openSnackbar } = useSnackbar();
 
   useEffect(() => {
     (async () => {
-      const res = await getAnalytsUsersService(api);
-      setAnalysts(res.data);
+      try {
+        const res = await getAnalytsUsersService(api);
+        setAnalysts(res.data);
+      } catch (error) {
+        openSnackbar("Falha ao obter analistas", "error");
+      }
     })();
   }, []);
 
