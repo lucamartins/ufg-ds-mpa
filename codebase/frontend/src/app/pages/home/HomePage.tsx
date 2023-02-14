@@ -9,12 +9,13 @@ import {
 } from "@mui/material";
 import GroupsIcon from "@mui/icons-material/Groups";
 import { useNavigate } from "react-router-dom";
-import { useApi } from "@/app/shared/hooks";
+import { useApi, useSnackbar } from "@/app/shared/hooks";
 import { useEffect, useState } from "react";
 import { getAllProcessesService } from "@/services";
 import { SelectiveProcess } from "@/services/selective-processes";
 import { Col, Row } from "@/app/shared/styled";
 import AddIcon from "@mui/icons-material/Add";
+import { AddProcessDialog } from "./components";
 
 const HomePage = () => {
   const [selectiveProcesses, setSelectiveProcesses] = useState<
@@ -22,19 +23,33 @@ const HomePage = () => {
   >(null);
   const navigate = useNavigate();
   const api = useApi();
+  const { openSnackbar } = useSnackbar();
+  const [addProcessDialogOpen, setAddProcessDialogOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const res = await getAllProcessesService(api);
-      setSelectiveProcesses(res.data);
+      try {
+        const res = await getAllProcessesService(api);
+        setSelectiveProcesses(res.data);
+      } catch (err) {
+        openSnackbar("Falha ao carregar processos seletivos", "error");
+      }
     })();
   }, [api]);
+
+  useEffect(() => {
+    console.log(selectiveProcesses);
+  }, [selectiveProcesses]);
 
   return (
     <>
       <Row justifyContent="space-between" alignItems="center">
         <Typography variant="h4">Processos Seletivos</Typography>
-        <Button variant="contained" endIcon={<AddIcon />}>
+        <Button
+          variant="contained"
+          endIcon={<AddIcon />}
+          onClick={() => setAddProcessDialogOpen(true)}
+        >
           Novo PS
         </Button>
       </Row>
@@ -67,6 +82,9 @@ const HomePage = () => {
             Nenhum processo seletivo encontrado.
           </Typography>
         </Row>
+      )}
+      {addProcessDialogOpen && (
+        <AddProcessDialog handleClose={() => setAddProcessDialogOpen(false)} />
       )}
     </>
   );
