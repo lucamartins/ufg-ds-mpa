@@ -25,6 +25,9 @@ const HomePage = () => {
   const api = useApi();
   const { openSnackbar } = useSnackbar();
   const [addProcessDialogOpen, setAddProcessDialogOpen] = useState(false);
+  const [shouldRefetch, setShouldRefetch] = useState(0);
+
+  const refetch = () => setShouldRefetch(shouldRefetch + 1);
 
   useEffect(() => {
     (async () => {
@@ -35,11 +38,7 @@ const HomePage = () => {
         openSnackbar("Falha ao carregar processos seletivos", "error");
       }
     })();
-  }, [api]);
-
-  useEffect(() => {
-    console.log(selectiveProcesses);
-  }, [selectiveProcesses]);
+  }, [api, shouldRefetch]);
 
   return (
     <>
@@ -84,7 +83,10 @@ const HomePage = () => {
         </Row>
       )}
       {addProcessDialogOpen && (
-        <AddProcessDialog handleClose={() => setAddProcessDialogOpen(false)} />
+        <AddProcessDialog
+          handleClose={() => setAddProcessDialogOpen(false)}
+          refetch={refetch}
+        />
       )}
     </>
   );

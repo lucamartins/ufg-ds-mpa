@@ -10,9 +10,16 @@ import {
   TextField,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
-import { useState } from "react";
+import { AxiosError } from "axios";
+import { useEffect, useState } from "react";
 
-const AddProcessDialog = ({ handleClose }: { handleClose: () => void }) => {
+const AddProcessDialog = ({
+  handleClose,
+  refetch,
+}: {
+  handleClose: () => void;
+  refetch: () => void;
+}) => {
   const api = useApi();
   const { openSnackbar } = useSnackbar();
   const [form, setForm] = useState<{
@@ -38,11 +45,24 @@ const AddProcessDialog = ({ handleClose }: { handleClose: () => void }) => {
     try {
       const res = await addProcessService(api, data);
       openSnackbar("PS cadastrado com sucesso", "success");
+      refetch();
       handleClose();
     } catch (err) {
-      openSnackbar("Erro ao cadastrar", "error");
+      openSnackbar(
+        (err as AxiosError<{ error: string }>).response?.data?.error ||
+          "Falha ao cadastrar PS",
+        "error"
+      );
     }
   };
+
+  useEffect(() => {
+    setForm({
+      ...form,
+      inicio: form.ano,
+      termino: form.ano,
+    });
+  }, [form.ano]);
 
   return (
     <>
@@ -66,6 +86,7 @@ const AddProcessDialog = ({ handleClose }: { handleClose: () => void }) => {
 
               <DatePicker
                 label="Início"
+                minDate={form.ano}
                 value={form.inicio}
                 views={["month", "day"]}
                 disablePast
@@ -80,6 +101,7 @@ const AddProcessDialog = ({ handleClose }: { handleClose: () => void }) => {
               <DatePicker
                 label="Término"
                 disablePast
+                minDate={form.ano}
                 views={["month", "day"]}
                 value={form.termino}
                 onChange={(newValue) => {
