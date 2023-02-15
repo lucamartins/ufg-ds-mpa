@@ -4,6 +4,7 @@ import {
   GetAnalystUsersResponse,
 } from "@/services/users";
 import {
+  Box,
   Button,
   Divider,
   List,
@@ -71,8 +72,8 @@ const AnalystUsersList = ({
         <Paper variant="outlined">
           <List>
             {analysts.map((user, ind) => (
-              <>
-                <ListItem key={user.id}>
+              <Box key={user.id}>
+                <ListItem>
                   <ListItemText>{user.nome}</ListItemText>
                   <ListItemText>{user.email}</ListItemText>
                   <Button
@@ -84,7 +85,7 @@ const AnalystUsersList = ({
                   </Button>
                 </ListItem>
                 {ind !== analysts.length - 1 && <Divider />}
-              </>
+              </Box>
             ))}
           </List>
         </Paper>
