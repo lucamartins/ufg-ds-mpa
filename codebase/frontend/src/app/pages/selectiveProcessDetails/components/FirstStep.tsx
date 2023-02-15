@@ -12,6 +12,7 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import {} from "@mui/material/colors";
 import { FileDropContainer } from "./FirstStepStyles";
 import SendIcon from "@mui/icons-material/Send";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const FirstStep: FC = () => {
   const theme = useTheme();
@@ -50,7 +51,7 @@ const FirstStep: FC = () => {
             <FileDropContainer theme={theme} onClick={handleFileSelectClick}>
               <Avatar
                 sx={{
-                  bgcolor: theme.palette.primary.light,
+                  bgcolor: theme.palette.primary.main,
                   color: theme.palette.common.white,
                 }}
               >
@@ -85,7 +86,12 @@ const FirstStep: FC = () => {
                     {file.name}
                   </Typography>
                 </Row>
-                <Button variant="text" onClick={handleRevertUpload}>
+
+                <Button
+                  variant="text"
+                  onClick={handleRevertUpload}
+                  endIcon={<ClearIcon />}
+                >
                   Reverter
                 </Button>
               </Col>
