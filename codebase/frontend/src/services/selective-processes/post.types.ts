@@ -3,3 +3,8 @@ export interface AddProcessReqData {
   inicio: string;
   termino: string;
 }
+
+export interface ProcessFirstStepReqData {
+  processID: string;
+  base64: string;
+}
