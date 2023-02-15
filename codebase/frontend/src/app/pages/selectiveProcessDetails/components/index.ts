@@ -1,1 +1,1 @@
-export { default as UploadCadidates } from "./UploadCandidates";
+export { default as FirstStep } from "./FirstStep";

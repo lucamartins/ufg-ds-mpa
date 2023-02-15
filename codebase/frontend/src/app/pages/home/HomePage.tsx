@@ -58,7 +58,9 @@ const HomePage = () => {
             <ListItemButton
               key={process.id}
               onClick={() => {
-                navigate(`details/${process.id}`);
+                navigate("details", {
+                  state: { processDetails: process },
+                });
               }}
             >
               <ListItemIcon>
