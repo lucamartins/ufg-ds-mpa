@@ -13,11 +13,16 @@ import {} from "@mui/material/colors";
 import { FileDropContainer } from "./FirstStepStyles";
 import SendIcon from "@mui/icons-material/Send";
 import ClearIcon from "@mui/icons-material/Clear";
+import { useApi, useFiles, useSnackbar } from "@/app/shared/hooks";
+import { ProcessFirstStepReqData, uploadFirstStepService } from "@/services";
 
-const FirstStep: FC = () => {
+const FirstStep = ({ processId }: { processId: string }) => {
   const theme = useTheme();
   const fileInput = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
+  const { getBase64 } = useFiles();
+  const { openSnackbar } = useSnackbar();
+  const api = useApi();
 
   const handleFileSelectClick = (event: React.MouseEvent<HTMLElement>) => {
     if (fileInput.current) {
@@ -33,6 +38,25 @@ const FirstStep: FC = () => {
 
   const handleRevertUpload = () => {
     setFile(null);
+  };
+
+  const handleConfirmUpload = async (e: React.MouseEvent<HTMLElement>) => {
+    if (!file) {
+      openSnackbar("Faça o upload do arquivo", "error");
+      return;
+    }
+
+    try {
+      const fileBase64 = await getBase64(file);
+      const data: ProcessFirstStepReqData = {
+        base64: fileBase64,
+        processID: processId,
+      };
+      await uploadFirstStepService(api, data);
+      openSnackbar("Upload realizado com sucesso", "success");
+    } catch (err) {
+      openSnackbar("Falha no upload", "error");
+    }
   };
 
   return (
@@ -104,6 +128,7 @@ const FirstStep: FC = () => {
           variant="contained"
           endIcon={<SendIcon />}
           sx={{ minWidth: "320px" }}
+          onClick={handleConfirmUpload}
         >
           Confirmar
         </Button>

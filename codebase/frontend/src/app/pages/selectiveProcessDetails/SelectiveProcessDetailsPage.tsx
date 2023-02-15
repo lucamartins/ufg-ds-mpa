@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import { FirstStep } from "./components";
 
 const steps = ["Candidaturas", "Notas ENEM", "Notas VHCE", "Resultado"];
-const stepsComponents = [<FirstStep />];
 
 interface StateProps {
   processDetails: {
@@ -70,7 +69,9 @@ const SelectiveProcessDetailsPage = () => {
         </Stepper>
       </Paper>
 
-      {stepsComponents[processDetails.etapa - 1]}
+      {processDetails.etapa === 1 && (
+        <FirstStep processId={processDetails.id} />
+      )}
     </>
   );
 };
