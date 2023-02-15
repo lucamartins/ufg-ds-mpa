@@ -16,16 +16,6 @@ import { TabsStyled } from "@/app/shared/styled";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppStore, useAuthStore } from "@/app/shared/stores";
 
-const tabNameMapper = [
-  {
-    route: "/",
-    name: "Processos Seletivos",
-  },
-  { route: "/settings", name: "Configurações" },
-];
-
-const pages = ["Processos Seletivos", "Criar novo PS"];
-
 const ResponsiveAppBar: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -81,6 +71,21 @@ const ResponsiveAppBar: React.FC = () => {
       },
     },
     { title: "Sair", action: handleLogout },
+  ];
+
+  const tabNameMapper = [
+    {
+      route: "/",
+      name: "Processos Seletivos",
+    },
+    ...(user?.role === "ADMIN"
+      ? [{ route: "/settings", name: "Configurações" }]
+      : []),
+  ];
+
+  const pages = [
+    "Processos Seletivos",
+    ...(user?.role === "ADMIN" ? ["Configurações"] : []),
   ];
 
   return (
