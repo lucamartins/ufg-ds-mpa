@@ -3,7 +3,10 @@ export const useFiles = () => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => resolve(String(reader.result));
+      reader.onload = () => {
+        const base64 = reader.result?.toString().split(",")[1];
+        return resolve(String(base64));
+      };
       reader.onerror = (error) => reject(error);
     });
   };
