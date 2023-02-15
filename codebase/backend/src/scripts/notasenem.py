@@ -31,32 +31,33 @@ base_path = os.path.abspath('.') + '/src/odsFiles/' + sys.argv[1] + '.ods'
 sheet_index = 1
 df = read_ods(base_path , sheet_index)
 
-sys.stdout.write('updating candidatos table')
+sys.stdout.write('updating NotasEnem table')
 # iterates over each line of the .ods document
 for ind in df.index:
-  formacaoEscolaPublica = False
 
-  if df['formacaoEscolaPublica'][ind] == '1':
-    formacaoEscolaPublica = True
-
-  # insert a new line on the "Candidatos" table
+  # insert a new line on the "NotasEnem" table
   cursor.execute(
-    'INSERT INTO "Candidatos" VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+    'INSERT INTO "NotasEnem" VALUES (%s, %s, %s, %s, %s, %s, %s)',
     (
-      df['cpf'][ind],
-      df['cargoId'][ind],
-      None,
-      sys.argv[2],
-      df['numCandidato'][ind],
-      df['corRaca'][ind],
-      formacaoEscolaPublica,
-      df['dataInscricao'][ind],
-      df['programa'][ind],
-      df['tipoPrograma'][ind],
-      df['nomeComunidade'][ind],
-      df['anoEnem'][ind]
+    df['numero'][ind],
+    df['notaCienciasNatureza'][ind],
+    df['notaCienciasHumanas'][ind],
+    df['notaLinguagens'][ind],
+    df['notaMatematica'][ind],
+    df['notaRedacao'][ind],
+    df['notaTotal'][ind]
     )
   )
   conn.commit()
+
+  # updates the column "notaEnemId" of the "Candidatos" table with its respective number
+  cursor.execute(
+    'UPDATE "Candidatos" SET "notaEnemId" = %s WHERE cpf = %s AND "processoSeletivoId" = %s',
+    (
+      df['numero'][ind],
+      df['cpfCandidato'][ind],
+      sys.argv[2],
+    )
+  )
 
 sys.stdout.flush()

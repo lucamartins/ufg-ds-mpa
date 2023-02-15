@@ -30,8 +30,7 @@ CREATE TABLE "Cargos" (
 
 -- CreateTable
 CREATE TABLE "NotasEnem" (
-    "id" SERIAL NOT NULL,
-    "numero" INTEGER NOT NULL,
+    "numero" TEXT NOT NULL,
     "notaCienciasNatureza" DOUBLE PRECISION NOT NULL,
     "notaCienciasHumanas" DOUBLE PRECISION NOT NULL,
     "notaLinguagens" DOUBLE PRECISION NOT NULL,
@@ -39,7 +38,7 @@ CREATE TABLE "NotasEnem" (
     "notaRedacao" DOUBLE PRECISION NOT NULL,
     "notaTotal" DOUBLE PRECISION NOT NULL,
 
-    CONSTRAINT "NotasEnem_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "NotasEnem_pkey" PRIMARY KEY ("numero")
 );
 
 -- CreateTable
@@ -55,12 +54,11 @@ CREATE TABLE "Programas" (
 
 -- CreateTable
 CREATE TABLE "Candidatos" (
-    "id" SERIAL NOT NULL,
+    "cpf" TEXT NOT NULL,
     "cargoId" INTEGER NOT NULL,
-    "notaEnemId" INTEGER,
+    "notaEnemId" TEXT,
     "processoSeletivoId" UUID NOT NULL,
     "numCandidato" TEXT NOT NULL,
-    "cpf" TEXT NOT NULL,
     "corRaca" INTEGER NOT NULL,
     "formacaoEscolaPublica" BOOLEAN NOT NULL,
     "dataInscricao" TIMESTAMP(3) NOT NULL,
@@ -70,7 +68,7 @@ CREATE TABLE "Candidatos" (
     "anoEnem" INTEGER,
     "semestreIngresso" INTEGER,
 
-    CONSTRAINT "Candidatos_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Candidatos_pkey" PRIMARY KEY ("cpf")
 );
 
 -- CreateTable
@@ -88,19 +86,22 @@ CREATE TABLE "ProcessosSeletivos" (
 CREATE UNIQUE INDEX "Cargos_codg_key" ON "Cargos"("codg");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "NotasEnem_numero_key" ON "NotasEnem"("numero");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Candidatos_cpf_key" ON "Candidatos"("cpf");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Candidatos_notaEnemId_key" ON "Candidatos"("notaEnemId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Candidatos_numCandidato_key" ON "Candidatos"("numCandidato");
 
--- CreateIndex
-CREATE UNIQUE INDEX "Candidatos_cpf_key" ON "Candidatos"("cpf");
-
 -- AddForeignKey
 ALTER TABLE "Candidatos" ADD CONSTRAINT "Candidatos_cargoId_fkey" FOREIGN KEY ("cargoId") REFERENCES "Cargos"("codg") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Candidatos" ADD CONSTRAINT "Candidatos_notaEnemId_fkey" FOREIGN KEY ("notaEnemId") REFERENCES "NotasEnem"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Candidatos" ADD CONSTRAINT "Candidatos_notaEnemId_fkey" FOREIGN KEY ("notaEnemId") REFERENCES "NotasEnem"("numero") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Candidatos" ADD CONSTRAINT "Candidatos_processoSeletivoId_fkey" FOREIGN KEY ("processoSeletivoId") REFERENCES "ProcessosSeletivos"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

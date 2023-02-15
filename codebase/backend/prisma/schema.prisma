@@ -39,10 +39,9 @@ model Cargos {
 }
 
 model NotasEnem {
-  id                      Int           @id @default(autoincrement())
+  numero                  String        @id @unique
   candidato               Candidatos?   
 
-  numero                  Int
   notaCienciasNatureza    Float
   notaCienciasHumanas     Float
   notaLinguagens          Float
@@ -60,19 +59,18 @@ model Programas {
 }
 
 model Candidatos {
-  id                      Int                   @id @default(autoincrement())
+  cpf                     String                @id @unique
 
   cargoId                 Int           
   cargo                   Cargos                @relation(fields: [cargoId], references: [codg])
 
-  notaEnemId              Int?                  @unique
-  notaEnem                NotasEnem?            @relation(fields: [notaEnemId], references: [id])
+  notaEnemId              String?                  @unique
+  notaEnem                NotasEnem?            @relation(fields: [notaEnemId], references: [numero])
 
   processoSeletivoId      String                @db.Uuid
   processoSeletivo        ProcessosSeletivos    @relation(fields: [processoSeletivoId], references: [id])
   
   numCandidato            String                   @unique
-  cpf                     String                @unique
   corRaca                 Int
   formacaoEscolaPublica   Boolean
   dataInscricao           DateTime
