@@ -30,4 +30,30 @@ export class ProcessosSeletivosRepository {
     
     return false;
   }
+
+  async searchProcessId(processID: string) {
+    return await prisma.processosSeletivos.findFirst({
+      where: {
+        id: processID
+      }
+    });
+  }
+
+  async changeProcessStep(step: number, processID: string) {
+    return await prisma.processosSeletivos.update({
+      where: {
+        id: processID
+      },
+      data: {
+        etapa: step
+      },
+      select: {
+        id: true,
+        ano: true,
+        etapa: true,
+        inicio: true,
+        termino: true,
+      }
+    })
+  }
 }
