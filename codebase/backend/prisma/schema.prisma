@@ -39,8 +39,13 @@ model Cargos {
 }
 
 model NotasEnem {
-  numero                  String        @id @unique
-  candidato               Candidatos?   
+  id                      String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  numero                  String
+  candidato               Candidatos?
+
+  processoSeletivoId      String                @db.Uuid
+  processoSeletivo        ProcessosSeletivos    @relation(fields: [processoSeletivoId], references: [id])
 
   notaCienciasNatureza    Float
   notaCienciasHumanas     Float
@@ -59,18 +64,19 @@ model Programas {
 }
 
 model Candidatos {
-  cpf                     String                @id @unique
+  id                      String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  cpf                     String
 
   cargoId                 Int           
   cargo                   Cargos                @relation(fields: [cargoId], references: [codg])
 
-  notaEnemId              String?                  @unique
-  notaEnem                NotasEnem?            @relation(fields: [notaEnemId], references: [numero])
+  notaEnemId              String?               @unique @db.Uuid
+  notaEnem                NotasEnem?            @relation(fields: [notaEnemId], references: [id])
 
   processoSeletivoId      String                @db.Uuid
   processoSeletivo        ProcessosSeletivos    @relation(fields: [processoSeletivoId], references: [id])
   
-  numCandidato            String                   @unique
+  numCandidato            String
   corRaca                 Int
   formacaoEscolaPublica   Boolean
   dataInscricao           DateTime
@@ -83,7 +89,9 @@ model Candidatos {
 
 model ProcessosSeletivos {
   id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  candidatos    Candidatos[]    
+
+  candidatos    Candidatos[]
+  notasEnem     NotasEnem[]
 
   ano           Int
   inicio        DateTime
