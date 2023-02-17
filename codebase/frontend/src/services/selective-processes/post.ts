@@ -9,4 +9,4 @@ export const addProcessService = async (
 export const uploadFirstStepService = async (
   api: ApiType,
   data: ProcessFirstStepReqData
-) => await api.post("/uploads/cadastros", data);
+) => await api.post("/uploads/candidatos", data);

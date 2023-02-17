@@ -16,7 +16,13 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { useApi, useFiles, useSnackbar } from "@/app/shared/hooks";
 import { ProcessFirstStepReqData, uploadFirstStepService } from "@/services";
 
-const FirstStep = ({ processId }: { processId: string }) => {
+const FirstStep = ({
+  processId,
+  setProcessDetails,
+}: {
+  processId: string;
+  setProcessDetails: (processDetails: any) => void;
+}) => {
   const theme = useTheme();
   const fileInput = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -52,8 +58,9 @@ const FirstStep = ({ processId }: { processId: string }) => {
         base64: fileBase64,
         processID: processId,
       };
-      await uploadFirstStepService(api, data);
-      openSnackbar("Upload realizado com sucesso", "success");
+      const res = await uploadFirstStepService(api, data);
+      setProcessDetails(res.data?.processData);
+      openSnackbar("Etapa 1 concluída", "success");
     } catch (err) {
       openSnackbar("Falha no upload", "error");
     }

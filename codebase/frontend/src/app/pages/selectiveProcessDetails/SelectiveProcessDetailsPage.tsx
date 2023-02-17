@@ -70,8 +70,12 @@ const SelectiveProcessDetailsPage = () => {
       </Paper>
 
       {processDetails.etapa === 1 && (
-        <FirstStep processId={processDetails.id} />
+        <FirstStep
+          processId={processDetails.id}
+          setProcessDetails={setProcessDetails}
+        />
       )}
+      {processDetails.etapa === 2 && <h1>Etapa 2..</h1>}
     </>
   );
 };
