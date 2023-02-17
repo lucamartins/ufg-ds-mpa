@@ -1,5 +1,10 @@
+import { AxiosResponse } from "axios";
 import { ApiType } from "../http";
-import { AddProcessReqData, ProcessFirstStepReqData } from "./post.types";
+import {
+  AddProcessReqData,
+  ProcessFirstStepReqData,
+  ProcessFirstStepResData,
+} from "./post.types";
 
 export const addProcessService = async (
   api: ApiType,
@@ -9,4 +14,5 @@ export const addProcessService = async (
 export const uploadFirstStepService = async (
   api: ApiType,
   data: ProcessFirstStepReqData
-) => await api.post("/uploads/candidatos", data);
+): Promise<AxiosResponse<ProcessFirstStepResData>> =>
+  await api.post("/uploads/candidatos", data);
