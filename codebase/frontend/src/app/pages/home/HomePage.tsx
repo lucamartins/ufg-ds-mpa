@@ -26,7 +26,6 @@ const HomePage = () => {
   const { openSnackbar } = useSnackbar();
   const [addProcessDialogOpen, setAddProcessDialogOpen] = useState(false);
   const [shouldRefetch, setShouldRefetch] = useState(0);
-  console.log("oi");
 
   const refetch = () => setShouldRefetch(shouldRefetch + 1);
 
