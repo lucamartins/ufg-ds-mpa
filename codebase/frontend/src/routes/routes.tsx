@@ -1,4 +1,4 @@
-import { AuthLayout, HomeLayout } from "@/app/layouts";
+import { AuthLayout, GlobalLayout, HomeLayout } from "@/app/layouts";
 import {
   HomePage,
   SettingsPage,
@@ -15,13 +15,15 @@ import {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<AuthProvider />}>
-      <Route path="/" element={<HomeLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="settings" element={<SettingsPage />} />
-        <Route path="details" element={<SelectiveProcessDetailsPage />} />
-      </Route>
-      <Route path="auth" element={<AuthLayout />}>
-        <Route path="login" element={<LoginPage />} />
+      <Route element={<GlobalLayout />}>
+        <Route path="/" element={<HomeLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="settings" element={<SettingsPage />} />
+          <Route path="details" element={<SelectiveProcessDetailsPage />} />
+        </Route>
+        <Route path="auth" element={<AuthLayout />}>
+          <Route path="login" element={<LoginPage />} />
+        </Route>
       </Route>
     </Route>
   )

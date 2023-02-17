@@ -18,6 +18,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
       <RouterProvider router={router} />
     </LocalizationProvider>
-    <CustomSnackbar />
   </React.StrictMode>
 );
