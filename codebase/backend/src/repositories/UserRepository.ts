@@ -85,4 +85,16 @@ export class UserRepository {
       }
     })
   }
+
+  async getVhceCpfs(processID: string) {
+    return await prisma.candidatos.findMany({
+      where: {
+        processoSeletivoId: processID,
+        cargoId: 85
+      },
+      select: {
+        cpf: true
+      }
+    });
+  }
 }
