@@ -31,42 +31,42 @@ base_path = os.path.abspath('.') + '/src/odsFiles/' + sys.argv[1] + '.ods'
 sheet_index = 1
 df = read_ods(base_path , sheet_index)
 
-sys.stdout.write('updating NotasEnem table')
+sys.stdout.write('updating NotasVhce table')
 # iterates over each line of the .ods document
 for ind in df.index:
 
-  # insert a new line on the "NotasEnem" table
+  # insert a new line on the "NotasVhce" table
   cursor.execute(
-    'INSERT INTO "NotasEnem" VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s)',
+    'INSERT INTO "NotasVhce" VALUES (DEFAULT, %s, %s, %s, %s, %s)',
     (
-    df['numero'][ind],
-    sys.argv[2],
-    df['notaCienciasNatureza'][ind],
-    df['notaCienciasHumanas'][ind],
-    df['notaLinguagens'][ind],
-    df['notaMatematica'][ind],
-    df['notaRedacao'][ind],
-    df['notaTotal'][ind]
+      str(df['cpfCandidato'][ind]).split('.')[0],
+      sys.argv[2],
+      df['n1'][ind],
+      df['n2'][ind],
+      df['ntotal'][ind],
     )
   )
   conn.commit()
 
-  # get the id generated for NotaEnem row
-  cursor.execute('SELECT id FROM "NotasEnem" WHERE numero = %s AND "processoSeletivoId" = %s',
+  # get the id generated for NotaVhce row
+  cursor.execute('SELECT id FROM "NotasVhce" WHERE "cpfCandidato" = %s AND "processoSeletivoId" = %s',
     (
-      df['numero'][ind],
+      str(df['cpfCandidato'][ind]).split('.')[0],
       sys.argv[2],
     )
   )
-  notaEnemId = cursor.fetchone()
+  notaVhceId = cursor.fetchone()
 
-  # updates the column "notaEnemId" of the "Candidatos" table with its respective number
+  print(str(df['cpfCandidato'][ind]).split('.')[0])
+  print(sys.argv[2])
+
+  # updates the column "notaVhceId" of the "Candidatos" table with its respective number
   cursor.execute(
-    'UPDATE "Candidatos" SET "notaEnemId" = %s WHERE cpf = %s AND "processoSeletivoId" = %s',
+    'UPDATE "Candidatos" SET "notaVhceId" = %s WHERE cpf = %s AND "processoSeletivoId" = %s',
     (
-      notaEnemId[0],
-      df['cpfCandidato'][ind],
-      sys.argv[2],
+      str(notaVhceId[0]),
+      str(df['cpfCandidato'][ind]).split('.')[0],
+      str(sys.argv[2]),
     )
   )
   conn.commit()

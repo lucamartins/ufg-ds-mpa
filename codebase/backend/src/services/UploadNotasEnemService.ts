@@ -20,7 +20,7 @@ export class UploadNotasEnemService {
         if (code === 0)
           resolve(code);
 
-        const error = new ApiErrors(500, 'failed to update cadastro')
+        const error = new ApiErrors(500, 'failed to update notasenem')
         reject(error);
       });
     })

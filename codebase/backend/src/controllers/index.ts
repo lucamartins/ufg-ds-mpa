@@ -8,6 +8,7 @@ import { DeleteAnalystUserController } from './DeleteAnalystUserController.js';
 import { UploadNotasEnemController } from './UploadNotasEnemController.js';
 import { ListProcessCpfsController } from './ListProcessCpfsController.js';
 import { ListVhceCpfsController } from './ListVhceCpfsController.js';
+import { UploadNotasVhceController } from './UploadNotasVhceController.js';
 
 export {
   LoginController,
@@ -19,5 +20,6 @@ export {
   DeleteAnalystUserController,
   UploadNotasEnemController,
   ListProcessCpfsController,
-  ListVhceCpfsController
+  ListVhceCpfsController,
+  UploadNotasVhceController
 }

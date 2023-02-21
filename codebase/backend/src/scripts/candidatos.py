@@ -41,10 +41,11 @@ for ind in df.index:
 
   # insert a new line on the "Candidatos" table
   cursor.execute(
-    'INSERT INTO "Candidatos" VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+    'INSERT INTO "Candidatos" VALUES (DEFAULT, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
     (
       df['cpf'][ind],
       df['cargoId'][ind],
+      None,
       None,
       sys.argv[2],
       df['numCandidato'][ind],

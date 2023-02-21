@@ -8,6 +8,7 @@ import {
   ListProcessesController,
   RegisterProcessController,
   UploadNotasEnemController,
+  UploadNotasVhceController,
   ListProcessCpfsController,
   UploadCandidatosController,
   ListAnalystUsersController,
@@ -27,6 +28,7 @@ router.post('/mpa/register/process', validateAdminAuthentication, RegisterProces
 
 router.post('/mpa/uploads/candidatos', validateAuthentication, UploadCandidatosController.handler);
 router.post('/mpa/uploads/notasenem', validateAuthentication, UploadNotasEnemController.handler);
+router.post('/mpa/uploads/vhce', validateAuthentication, UploadNotasVhceController.handler);
 
 router.delete('/mpa/users/analyst/:id', validateAdminAuthentication, DeleteAnalystUserController.handler);
 

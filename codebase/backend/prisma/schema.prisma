@@ -55,6 +55,20 @@ model NotasEnem {
   notaTotal               Float
 }
 
+model NotasVhce {
+  id                      String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  cpfCandidato            String
+  candidato               Candidatos?
+
+  processoSeletivoId      String                @db.Uuid
+  processoSeletivo        ProcessosSeletivos    @relation(fields: [processoSeletivoId], references: [id])
+
+  n1                      Int
+  n2                      Int
+  nTotal                  Int
+}
+
 model Programas {
   id                  Int       @id @default(autoincrement())
   codigo              Int
@@ -72,6 +86,9 @@ model Candidatos {
 
   notaEnemId              String?               @unique @db.Uuid
   notaEnem                NotasEnem?            @relation(fields: [notaEnemId], references: [id])
+
+  notaVhceId              String?               @unique @db.Uuid
+  notaVhce                NotasVhce?            @relation(fields: [notaVhceId], references: [id])
 
   processoSeletivoId      String                @db.Uuid
   processoSeletivo        ProcessosSeletivos    @relation(fields: [processoSeletivoId], references: [id])
@@ -92,6 +109,7 @@ model ProcessosSeletivos {
 
   candidatos    Candidatos[]
   notasEnem     NotasEnem[]
+  notasVhce     NotasVhce[]
 
   ano           Int
   inicio        DateTime

@@ -1,18 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
+import { UploadVhceService } from '../services/UploadVhceService.js';
 import { WriteOdsFileService } from '../services/WriteOdsFileService.js';
-import { UploadCandidatosService } from '../services/UploadCandidatosService.js';
-import { DeleteOdsFileService } from '../services/DeleteOdsFileService.js';
 import { VerifyProcessId } from '../services/VerifyProcessId.js';
-import { AlterProcessStep } from '../services/AlterProcessStep.js';
+import { DeleteOdsFileService } from '../services/DeleteOdsFileService.js';
 
-class UploadCandidatosController {
+class UploadNotasVhceController {
   static async handler(request: Request, response: Response, next: NextFunction) {
-    const verifyProcessId = new VerifyProcessId();
-    const alterProcessStep = new AlterProcessStep();
+    const uploadVhceService = new UploadVhceService();
     const writeOdsFileService = new WriteOdsFileService();
+    const verifyProcessId = new VerifyProcessId();
     const deleteOdsFileService = new DeleteOdsFileService();
-    const uploadCandidatosService = new UploadCandidatosService();
-    
+
     const { base64, processID } = request.body;
 
     // writing ods file and registering its id
@@ -22,15 +20,11 @@ class UploadCandidatosController {
       // verify processID validity
       await verifyProcessId.execute(processID);
 
-      // upload candidatos table
-      await uploadCandidatosService.execute(fileId, processID); 
-
-      // update process step
-      const processData = await alterProcessStep.execute(2, processID);
-
+      // upload notas vhce table
+      await uploadVhceService.execute(fileId, processID);
+      
       return response.status(200).json({
-        message: 'Candidatos table updated',
-        processData: processData
+        message: 'NotasVhce table updated'
       });
     } catch (err) {
       next(err);
@@ -40,4 +34,4 @@ class UploadCandidatosController {
   }
 }
 
-export { UploadCandidatosController };
+export { UploadNotasVhceController };
