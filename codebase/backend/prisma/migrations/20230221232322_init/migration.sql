@@ -44,6 +44,18 @@ CREATE TABLE "NotasEnem" (
 );
 
 -- CreateTable
+CREATE TABLE "NotasVhce" (
+    "id" UUID NOT NULL DEFAULT gen_random_uuid(),
+    "cpfCandidato" TEXT NOT NULL,
+    "processoSeletivoId" UUID NOT NULL,
+    "n1" INTEGER NOT NULL,
+    "n2" INTEGER NOT NULL,
+    "nTotal" INTEGER NOT NULL,
+
+    CONSTRAINT "NotasVhce_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Programas" (
     "id" SERIAL NOT NULL,
     "codigo" INTEGER NOT NULL,
@@ -60,6 +72,7 @@ CREATE TABLE "Candidatos" (
     "cpf" TEXT NOT NULL,
     "cargoId" INTEGER NOT NULL,
     "notaEnemId" UUID,
+    "notaVhceId" UUID,
     "processoSeletivoId" UUID NOT NULL,
     "numCandidato" TEXT NOT NULL,
     "corRaca" INTEGER NOT NULL,
@@ -91,14 +104,23 @@ CREATE UNIQUE INDEX "Cargos_codg_key" ON "Cargos"("codg");
 -- CreateIndex
 CREATE UNIQUE INDEX "Candidatos_notaEnemId_key" ON "Candidatos"("notaEnemId");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "Candidatos_notaVhceId_key" ON "Candidatos"("notaVhceId");
+
 -- AddForeignKey
 ALTER TABLE "NotasEnem" ADD CONSTRAINT "NotasEnem_processoSeletivoId_fkey" FOREIGN KEY ("processoSeletivoId") REFERENCES "ProcessosSeletivos"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "NotasVhce" ADD CONSTRAINT "NotasVhce_processoSeletivoId_fkey" FOREIGN KEY ("processoSeletivoId") REFERENCES "ProcessosSeletivos"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Candidatos" ADD CONSTRAINT "Candidatos_cargoId_fkey" FOREIGN KEY ("cargoId") REFERENCES "Cargos"("codg") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Candidatos" ADD CONSTRAINT "Candidatos_notaEnemId_fkey" FOREIGN KEY ("notaEnemId") REFERENCES "NotasEnem"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Candidatos" ADD CONSTRAINT "Candidatos_notaVhceId_fkey" FOREIGN KEY ("notaVhceId") REFERENCES "NotasVhce"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Candidatos" ADD CONSTRAINT "Candidatos_processoSeletivoId_fkey" FOREIGN KEY ("processoSeletivoId") REFERENCES "ProcessosSeletivos"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
