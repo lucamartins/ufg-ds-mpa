@@ -6,6 +6,7 @@ import { RegisterProcessController } from './RegisterProcessController.js';
 import { ListAnalystUsersController } from './ListAnalystUsersController.js';
 import { DeleteAnalystUserController } from './DeleteAnalystUserController.js';
 import { UploadNotasEnemController } from './UploadNotasEnemController.js';
+import { ListProcessCpfsController } from './ListProcessCpfsController.js';
 
 export {
   LoginController,
@@ -15,5 +16,6 @@ export {
   UploadCandidatosController,
   ListAnalystUsersController,
   DeleteAnalystUserController,
-  UploadNotasEnemController
+  UploadNotasEnemController,
+  ListProcessCpfsController
 }

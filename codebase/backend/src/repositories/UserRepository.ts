@@ -74,4 +74,15 @@ export class UserRepository {
       }
     })
   }
+
+  async getProcessCps(processID: string) {
+    return await prisma.candidatos.findMany({
+      where: {
+        processoSeletivoId: processID
+      },
+      select: {
+        cpf: true
+      }
+    })
+  }
 }
