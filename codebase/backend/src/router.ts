@@ -7,15 +7,17 @@ import {
   ListProcessesController,
   RegisterProcessController,
   UploadNotasEnemController,
+  ListProcessCpfsController,
   UploadCandidatosController,
   ListAnalystUsersController,
   DeleteAnalystUserController,
 } from './controllers/index.js';
 
 const router = Router();
-
+  
 router.get('/mpa/processes', validateAuthentication, ListProcessesController.handler);
 router.get('/mpa/users/analyst', validateAuthentication, ListAnalystUsersController.handler);
+router.get('/mpa/process/cpfs', validateAuthentication, ListProcessCpfsController.handler);
 
 router.post('/mpa/login', LoginController.handler);
 router.post('/mpa/register/user', validateAdminAuthentication, RegisterUserController.handler);
