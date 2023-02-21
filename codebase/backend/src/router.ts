@@ -4,6 +4,7 @@ import { validateAdminAuthentication } from './middlewares/validateAdminAuthenti
 import {
   LoginController,
   RegisterUserController,
+  ListVhceCpfsController,
   ListProcessesController,
   RegisterProcessController,
   UploadNotasEnemController,
@@ -18,6 +19,7 @@ const router = Router();
 router.get('/mpa/processes', validateAuthentication, ListProcessesController.handler);
 router.get('/mpa/users/analyst', validateAuthentication, ListAnalystUsersController.handler);
 router.get('/mpa/process/cpfs', validateAuthentication, ListProcessCpfsController.handler);
+router.get('/mpa/vhce/cpfs', validateAuthentication, ListVhceCpfsController.handler);
 
 router.post('/mpa/login', LoginController.handler);
 router.post('/mpa/register/user', validateAdminAuthentication, RegisterUserController.handler);
