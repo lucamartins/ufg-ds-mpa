@@ -6,7 +6,7 @@ import { useApi, useFiles, useSnackbar } from "@/app/shared/hooks";
 import {
   getCPFsDocument,
   ProcessFirstStepReqData,
-  uploadFirstStepService,
+  uploadSecondStepService,
 } from "@/services";
 import { UploadFile } from "@/app/shared/components";
 import download from "downloadjs";
@@ -35,7 +35,7 @@ const SecondStep = ({
         base64: fileBase64,
         processID: processId,
       };
-      const res = await uploadFirstStepService(api, data);
+      const res = await uploadSecondStepService(api, data);
       setProcessDetails(res.data?.processData);
       openSnackbar("Etapa 1 concluída", "success");
     } catch (err) {
