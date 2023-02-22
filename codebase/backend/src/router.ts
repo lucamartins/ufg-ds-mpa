@@ -33,7 +33,7 @@ router.post(
   validateAuthentication,
   ListVhceCpfsController.handler
 );
-router.get(
+router.post(
   "/mpa/resultado",
   validateAuthentication,
   CalcFinalResultController.handler
