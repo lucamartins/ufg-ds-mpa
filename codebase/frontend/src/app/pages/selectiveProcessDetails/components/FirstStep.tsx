@@ -5,6 +5,25 @@ import SendIcon from "@mui/icons-material/Send";
 import { useApi, useFiles, useSnackbar } from "@/app/shared/hooks";
 import { ProcessFirstStepReqData, uploadFirstStepService } from "@/services";
 import { UploadFile } from "@/app/shared/components";
+import { UploadFileProps } from "@/app/shared/components/UploadFile/UploadFile";
+
+const fileHelperDialogData: UploadFileProps["fileHelperDialog"] = {
+  dialogTitle: "Formato do arquivo de candidatos",
+  fileFormat: "ods",
+  fileMaxSize: 10,
+  fileFields: [
+    "numCandidato",
+    "cpf",
+    "corRaca",
+    "cargoId",
+    "formacaoEscolaPublica",
+    "dataInscricao",
+    "programa",
+    "tipoPrograma",
+    "nomeComunidade",
+    "anoEnem",
+  ],
+};
 
 const FirstStep = ({
   processId,
@@ -47,6 +66,7 @@ const FirstStep = ({
         file={file}
         setFile={setFile}
         primaryText="Para dar continuidade no processo seletivo, você precisa realizar o upload do arquivo (.ods) com os dados de candidatura dos participantes."
+        fileHelperDialog={fileHelperDialogData}
       />
       <Row justifyContent="flex-end" mt={2}>
         <Button
