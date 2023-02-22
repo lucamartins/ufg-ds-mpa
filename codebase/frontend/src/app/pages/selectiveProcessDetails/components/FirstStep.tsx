@@ -40,7 +40,7 @@ const FirstStep = ({
 
   return (
     <>
-      <Typography variant="h5" mb={2}>
+      <Typography variant="h5" mb={3}>
         Upload de Candidaturas
       </Typography>
       <UploadFile
