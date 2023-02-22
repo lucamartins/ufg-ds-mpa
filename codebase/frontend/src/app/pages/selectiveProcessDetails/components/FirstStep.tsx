@@ -6,6 +6,7 @@ import { useApi, useFiles, useSnackbar } from "@/app/shared/hooks";
 import { ProcessFirstStepReqData, uploadFirstStepService } from "@/services";
 import { UploadFile } from "@/app/shared/components";
 import { UploadFileProps } from "@/app/shared/components/UploadFile/UploadFile";
+import { useAppStore } from "@/app/shared/stores";
 
 const fileHelperDialogData: UploadFileProps["fileHelperDialog"] = {
   dialogTitle: "Formato do arquivo de candidatos",
@@ -36,6 +37,7 @@ const FirstStep = ({
   const { getBase64 } = useFiles();
   const { openSnackbar } = useSnackbar();
   const api = useApi();
+  const { openBackdropLoading, closeBackdropLoading } = useAppStore();
 
   const handleConfirmUpload = async (e: React.MouseEvent<HTMLElement>) => {
     if (!file) {
@@ -49,10 +51,15 @@ const FirstStep = ({
         base64: fileBase64,
         processID: processId,
       };
+      openBackdropLoading();
       const res = await uploadFirstStepService(api, data);
-      setProcessDetails(res.data?.processData);
-      openSnackbar("Etapa 1 concluída", "success");
+      setTimeout(() => {
+        setProcessDetails(res.data?.processData);
+        closeBackdropLoading();
+        openSnackbar("Etapa 1 concluída", "success");
+      }, 1000);
     } catch (err) {
+      closeBackdropLoading();
       openSnackbar("Falha no upload", "error");
     }
   };
