@@ -6,6 +6,8 @@ import {
   ProcessFirstStepResData,
   ProcessSecondStepReqData,
   ProcessSecondStepResData,
+  ProcessThirdStepReqData,
+  ProcessThirdStepResData,
 } from "./post.types";
 
 export const addProcessService = async (
@@ -19,7 +21,7 @@ export const uploadFirstStepService = async (
 ): Promise<AxiosResponse<ProcessFirstStepResData>> =>
   await api.post("/uploads/candidatos", data);
 
-export const getCPFsDocument = async (
+export const getCPFsSecondStepService = async (
   api: ApiType,
   processId: string
 ): Promise<AxiosResponse> =>
@@ -33,8 +35,33 @@ export const getCPFsDocument = async (
     }
   );
 
+export const getCPFsThirdStepService = async (
+  api: ApiType,
+  processId: string
+): Promise<AxiosResponse> =>
+  await api.post(
+    "/vhce/cpfs",
+    {
+      processID: processId,
+    },
+    {
+      responseType: "blob",
+    }
+  );
+
 export const uploadSecondStepService = async (
   api: ApiType,
   data: ProcessSecondStepReqData
 ): Promise<AxiosResponse<ProcessSecondStepResData>> =>
   await api.post("/uploads/notasenem", data);
+
+export const uploadThirdStepService = async (
+  api: ApiType,
+  data: ProcessThirdStepReqData
+): Promise<AxiosResponse<ProcessThirdStepResData>> =>
+  await api.post("/uploads/vhce", data);
+
+export const getResultsService = async (api: ApiType, processId: string) =>
+  await api.post("/resultado", {
+    processID: processId,
+  });
