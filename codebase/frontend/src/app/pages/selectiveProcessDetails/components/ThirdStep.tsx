@@ -4,14 +4,14 @@ import { useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import { useApi, useFiles, useSnackbar } from "@/app/shared/hooks";
 import {
-  getCPFsSecondStepService,
+  getCPFsThirdStepService,
   ProcessFirstStepReqData,
-  uploadSecondStepService,
+  uploadThirdStepService,
 } from "@/services";
 import { UploadFile } from "@/app/shared/components";
 import download from "downloadjs";
 
-const SecondStep = ({
+const ThirdStep = ({
   processId,
   setProcessDetails,
 }: {
@@ -35,7 +35,7 @@ const SecondStep = ({
         base64: fileBase64,
         processID: processId,
       };
-      const res = await uploadSecondStepService(api, data);
+      const res = await uploadThirdStepService(api, data);
       setProcessDetails(res.data?.processData);
       openSnackbar("Etapa 1 concluída", "success");
     } catch (err) {
@@ -45,9 +45,9 @@ const SecondStep = ({
 
   const handleDownloadCPFs = async () => {
     try {
-      const res = await getCPFsSecondStepService(api, processId);
+      const res = await getCPFsThirdStepService(api, processId);
       const blob = await res.data;
-      download(blob, `CPFs-ENEM-${processId}.txt`);
+      download(blob, `CPFs-VHCE-${processId}.txt`);
     } catch (err) {
       openSnackbar("Falha ao obter documento", "error");
     }
@@ -56,7 +56,7 @@ const SecondStep = ({
   return (
     <>
       <Typography variant="h5" mb={3}>
-        Upload das notas ENEM dos participantes
+        Upload das notas VHCE dos participantes
       </Typography>
       <Paper sx={{ mb: 2, p: 2 }} variant="outlined">
         <Col alignItems="center">
@@ -70,7 +70,7 @@ const SecondStep = ({
       <UploadFile
         file={file}
         setFile={setFile}
-        primaryText="Para dar continuidade no processo seletivo, você precisa realizar o upload do arquivo (.csv/.ods) com as notas ENEM dos participantes."
+        primaryText="Para dar continuidade no processo seletivo, você precisa realizar o upload do arquivo (.csv/.ods) com as notas VHCE dos participantes."
       />
       <Row justifyContent="flex-end" mt={2}>
         <Button
@@ -86,4 +86,4 @@ const SecondStep = ({
   );
 };
 
-export default SecondStep;
+export default ThirdStep;
