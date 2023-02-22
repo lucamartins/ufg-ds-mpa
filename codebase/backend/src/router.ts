@@ -52,7 +52,7 @@ router.post(
 );
 router.post(
   "/mpa/register/process",
-  validateAdminAuthentication,
+  validateAuthentication,
   RegisterProcessController.handler
 );
 
