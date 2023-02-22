@@ -13,6 +13,7 @@ import {
   UploadCandidatosController,
   ListAnalystUsersController,
   DeleteAnalystUserController,
+  CalcFinalResultController
 } from './controllers/index.js';
 
 const router = Router();
@@ -21,6 +22,7 @@ router.get('/mpa/processes', validateAuthentication, ListProcessesController.han
 router.get('/mpa/users/analyst', validateAuthentication, ListAnalystUsersController.handler);
 router.get('/mpa/process/cpfs', validateAuthentication, ListProcessCpfsController.handler);
 router.get('/mpa/vhce/cpfs', validateAuthentication, ListVhceCpfsController.handler);
+router.get('/mpa/resultado', validateAuthentication, CalcFinalResultController.handler);
 
 router.post('/mpa/login', LoginController.handler);
 router.post('/mpa/register/user', validateAdminAuthentication, RegisterUserController.handler);
