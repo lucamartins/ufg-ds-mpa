@@ -21,6 +21,12 @@ export const getCPFsDocument = async (
   api: ApiType,
   processId: string
 ): Promise<AxiosResponse> =>
-  await api.post("/process/cpfs", {
-    processID: processId,
-  });
+  await api.post(
+    "/process/cpfs",
+    {
+      processID: processId,
+    },
+    {
+      responseType: "blob",
+    }
+  );
