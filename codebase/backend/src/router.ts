@@ -28,7 +28,7 @@ router.get(
   validateAuthentication,
   ListAnalystUsersController.handler
 );
-router.get(
+router.post(
   "/mpa/vhce/cpfs",
   validateAuthentication,
   ListVhceCpfsController.handler
