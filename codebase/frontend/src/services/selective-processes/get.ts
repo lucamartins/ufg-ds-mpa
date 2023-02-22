@@ -6,6 +6,3 @@ export const getAllProcessesService = async (
   api: ApiType
 ): Promise<AxiosResponse<GetAllProcessesServiceResponse>> =>
   await api.get("/processes");
-
-export const getCPFsDocument = async (api: ApiType): Promise<AxiosResponse> =>
-  await api.get("/process/cpfs");
