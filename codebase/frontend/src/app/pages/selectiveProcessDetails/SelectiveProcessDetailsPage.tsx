@@ -11,7 +11,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Row } from "@/app/shared/styled";
 import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 import { useEffect, useState } from "react";
-import { FirstStep } from "./components";
+import { FirstStep, SecondStep } from "./components";
 
 const steps = ["Candidaturas", "Notas ENEM", "Notas VHCE", "Resultado"];
 
@@ -75,7 +75,12 @@ const SelectiveProcessDetailsPage = () => {
           setProcessDetails={setProcessDetails}
         />
       )}
-      {processDetails.etapa === 2 && <h1>Etapa 2..</h1>}
+      {processDetails.etapa === 2 && (
+        <SecondStep
+          processId={processDetails.id}
+          setProcessDetails={setProcessDetails}
+        />
+      )}
     </>
   );
 };
