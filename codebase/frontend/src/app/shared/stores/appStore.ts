@@ -10,6 +10,9 @@ interface AppStore {
   accModalOpen: boolean;
   openAccModal: () => void;
   closeAccModal: () => void;
+  isBackdropLoading: boolean;
+  openBackdropLoading: () => void;
+  closeBackdropLoading: () => void;
 }
 
 const useAppStore = create<AppStore>((set, get) => ({
@@ -22,6 +25,9 @@ const useAppStore = create<AppStore>((set, get) => ({
   openSnackbar: (text: string, type?: AlertColor) =>
     set({ isSnackbarOpen: true, snackbarType: type, snackbarText: text }),
   closeSnackbar: () => set({ isSnackbarOpen: false }),
+  isBackdropLoading: false,
+  openBackdropLoading: () => set({ isBackdropLoading: true }),
+  closeBackdropLoading: () => set({ isBackdropLoading: false }),
 }));
 
 export default useAppStore;
