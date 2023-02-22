@@ -16,3 +16,11 @@ export const uploadFirstStepService = async (
   data: ProcessFirstStepReqData
 ): Promise<AxiosResponse<ProcessFirstStepResData>> =>
   await api.post("/uploads/candidatos", data);
+
+export const getCPFsDocument = async (
+  api: ApiType,
+  processId: string
+): Promise<AxiosResponse> =>
+  await api.post("/process/cpfs", {
+    processID: processId,
+  });

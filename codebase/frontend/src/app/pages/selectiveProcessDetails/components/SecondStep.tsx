@@ -44,7 +44,7 @@ const SecondStep = ({
 
   const handleDownloadCPFs = async () => {
     try {
-      await getCPFsDocument(api);
+      await getCPFsDocument(api, processId);
     } catch (err) {
       openSnackbar("Falha ao obter documento", "error");
     }
