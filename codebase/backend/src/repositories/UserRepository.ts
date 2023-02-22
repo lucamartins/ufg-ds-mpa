@@ -83,7 +83,7 @@ export class UserRepository {
       select: {
         cpf: true
       }
-    })
+    });
   }
 
   async getVhceCpfs(processID: string) {
@@ -94,6 +94,14 @@ export class UserRepository {
       },
       select: {
         cpf: true
+      }
+    });
+  }
+
+  async getProcessUsers(processID: string) {
+    return await prisma.candidatos.findMany({
+      where: {
+        processoSeletivoId: processID
       }
     });
   }

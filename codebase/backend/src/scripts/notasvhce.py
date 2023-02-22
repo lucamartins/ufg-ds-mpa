@@ -57,9 +57,6 @@ for ind in df.index:
   )
   notaVhceId = cursor.fetchone()
 
-  print(str(df['cpfCandidato'][ind]).split('.')[0])
-  print(sys.argv[2])
-
   # updates the column "notaVhceId" of the "Candidatos" table with its respective number
   cursor.execute(
     'UPDATE "Candidatos" SET "notaVhceId" = %s WHERE cpf = %s AND "processoSeletivoId" = %s',
