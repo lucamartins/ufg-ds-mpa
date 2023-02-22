@@ -11,6 +11,7 @@ import {
 import { UploadFile } from "@/app/shared/components";
 import download from "downloadjs";
 import { UploadFileProps } from "@/app/shared/components/UploadFile/UploadFile";
+import { useAppStore } from "@/app/shared/stores";
 
 const fileHelperDialogData: UploadFileProps["fileHelperDialog"] = {
   dialogTitle: "Formato do arquivo das notas ENEM",
@@ -30,6 +31,7 @@ const ThirdStep = ({
   const { getBase64 } = useFiles();
   const { openSnackbar } = useSnackbar();
   const api = useApi();
+  const { openBackdropLoading, closeBackdropLoading } = useAppStore();
 
   const handleConfirmUpload = async (e: React.MouseEvent<HTMLElement>) => {
     if (!file) {
@@ -43,10 +45,15 @@ const ThirdStep = ({
         base64: fileBase64,
         processID: processId,
       };
+      openBackdropLoading();
       const res = await uploadThirdStepService(api, data);
-      setProcessDetails(res.data?.processData);
-      openSnackbar("Etapa 3 concluída", "success");
+      setTimeout(() => {
+        closeBackdropLoading();
+        setProcessDetails(res.data?.processData);
+        openSnackbar("Etapa 3 concluída", "success");
+      }, 1000);
     } catch (err) {
+      closeBackdropLoading();
       openSnackbar("Falha no upload", "error");
     }
   };
