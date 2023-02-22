@@ -48,7 +48,12 @@ const Result = ({ processId }: { processId: string }) => {
       </Typography>
 
       <Box height={500} width="100%">
-        <DataGrid columns={columns} rows={resultData} pageSize={15} />
+        <DataGrid
+          columns={columns}
+          rows={resultData}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+        />
       </Box>
     </>
   );

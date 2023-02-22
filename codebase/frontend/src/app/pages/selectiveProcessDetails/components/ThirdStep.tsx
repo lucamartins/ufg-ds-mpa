@@ -37,7 +37,7 @@ const ThirdStep = ({
       };
       const res = await uploadThirdStepService(api, data);
       setProcessDetails(res.data?.processData);
-      openSnackbar("Etapa 1 concluída", "success");
+      openSnackbar("Etapa 3 concluída", "success");
     } catch (err) {
       openSnackbar("Falha no upload", "error");
     }
