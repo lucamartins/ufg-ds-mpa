@@ -61,8 +61,8 @@ const SecondStep = ({
       <Paper sx={{ mb: 2, p: 2 }} variant="outlined">
         <Col alignItems="center">
           <Typography variant="body1" p={2}>
-            Clique no botão abaixo para obter o arquivo com os CPFs dos
-            participantes.
+            Clique no botão abaixo para fazer download do arquivo com os CPFs
+            dos participantes.
           </Typography>
           <Button onClick={handleDownloadCPFs}>Obter CPFs</Button>
         </Col>
@@ -70,7 +70,7 @@ const SecondStep = ({
       <UploadFile
         file={file}
         setFile={setFile}
-        primaryText="Para dar continuidade no processo seletivo, você precisa realizar o upload do arquivo (.csv/.ods) com as notas ENEM dos participantes."
+        primaryText="Para dar continuidade no processo seletivo, você precisa realizar o upload do arquivo (.ods) com as notas ENEM dos participantes."
       />
       <Row justifyContent="flex-end" mt={2}>
         <Button

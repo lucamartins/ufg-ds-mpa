@@ -70,7 +70,7 @@ const ThirdStep = ({
       <UploadFile
         file={file}
         setFile={setFile}
-        primaryText="Para dar continuidade no processo seletivo, você precisa realizar o upload do arquivo (.csv/.ods) com as notas VHCE dos participantes."
+        primaryText="Para dar continuidade no processo seletivo, você precisa realizar o upload do arquivo (.ods) com as notas VHCE dos participantes."
       />
       <Row justifyContent="flex-end" mt={2}>
         <Button

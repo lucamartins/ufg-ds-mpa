@@ -46,7 +46,7 @@ const FirstStep = ({
       <UploadFile
         file={file}
         setFile={setFile}
-        primaryText="Para dar continuidade no processo seletivo, você precisa realizar o upload do arquivo (.csv/.ods) com dados de  candidatura dos participantes."
+        primaryText="Para dar continuidade no processo seletivo, você precisa realizar o upload do arquivo (.ods) com os dados de candidatura dos participantes."
       />
       <Row justifyContent="flex-end" mt={2}>
         <Button
