@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   Paper,
   Step,
   StepLabel,
@@ -30,6 +31,7 @@ const SelectiveProcessDetailsPage = () => {
   const { state } = useLocation();
   const [processDetails, setProcessDetails] =
     useState<StateProps["processDetails"]>();
+
   useEffect(() => {
     if (state) {
       const { processDetails } = state as StateProps;
@@ -40,7 +42,27 @@ const SelectiveProcessDetailsPage = () => {
   }, [state]);
 
   if (!processDetails)
-    return <Typography variant="caption">Carregando...</Typography>;
+    return (
+      <Row justifyContent="center" alignItems="center">
+        <CircularProgress />
+      </Row>
+    );
+
+  const stepsComponents = [
+    <FirstStep
+      processId={processDetails.id}
+      setProcessDetails={setProcessDetails}
+    />,
+    <SecondStep
+      processId={processDetails.id}
+      setProcessDetails={setProcessDetails}
+    />,
+    <ThirdStep
+      processId={processDetails.id}
+      setProcessDetails={setProcessDetails}
+    />,
+    <Result processId={processDetails.id} />,
+  ];
 
   return (
     <>
@@ -69,25 +91,7 @@ const SelectiveProcessDetailsPage = () => {
         </Stepper>
       </Paper>
 
-      {processDetails.etapa === 1 && (
-        <FirstStep
-          processId={processDetails.id}
-          setProcessDetails={setProcessDetails}
-        />
-      )}
-      {processDetails.etapa === 2 && (
-        <SecondStep
-          processId={processDetails.id}
-          setProcessDetails={setProcessDetails}
-        />
-      )}
-      {processDetails.etapa === 3 && (
-        <ThirdStep
-          processId={processDetails.id}
-          setProcessDetails={setProcessDetails}
-        />
-      )}
-      {processDetails.etapa === 4 && <Result processId={processDetails.id} />}
+      {stepsComponents[processDetails.etapa - 1]}
     </>
   );
 };
