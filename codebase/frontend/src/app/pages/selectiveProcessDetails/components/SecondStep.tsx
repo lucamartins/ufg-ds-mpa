@@ -9,6 +9,7 @@ import {
   uploadFirstStepService,
 } from "@/services";
 import { UploadFile } from "@/app/shared/components";
+import download from "downloadjs";
 
 const SecondStep = ({
   processId,
@@ -44,7 +45,9 @@ const SecondStep = ({
 
   const handleDownloadCPFs = async () => {
     try {
-      await getCPFsDocument(api, processId);
+      const res = await getCPFsDocument(api, processId);
+      const blob = await res.data;
+      download(blob, "CPFs.txt");
     } catch (err) {
       openSnackbar("Falha ao obter documento", "error");
     }
