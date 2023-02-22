@@ -13,7 +13,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { TableCellStyled } from "./FileHelperInformativeDialogStyles";
-import { InformativeDialogProps } from "./FileHelperInformativeDialogTypes";
+import { FileHelperInformativeDialogProps } from "./FileHelperInformativeDialogTypes";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import StorageOutlinedIcon from "@mui/icons-material/StorageOutlined";
 import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
@@ -25,7 +25,7 @@ const FileHelperInformativeDialog = ({
   fileMaxSize,
   fileFields,
   handleClose,
-}: InformativeDialogProps) => {
+}: FileHelperInformativeDialogProps) => {
   const theme = useTheme();
 
   return (
