@@ -87,12 +87,7 @@ const SelectiveProcessDetailsPage = () => {
           setProcessDetails={setProcessDetails}
         />
       )}
-      {processDetails.etapa === 4 && (
-        <Result
-          processId={processDetails.id}
-          setProcessDetails={setProcessDetails}
-        />
-      )}
+      {processDetails.etapa === 4 && <Result processId={processDetails.id} />}
     </>
   );
 };

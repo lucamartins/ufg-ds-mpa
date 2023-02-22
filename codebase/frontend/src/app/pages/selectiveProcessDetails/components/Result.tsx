@@ -1,44 +1,55 @@
-import { Col, Row } from "@/app/shared/styled";
-import { Button, Paper, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import SendIcon from "@mui/icons-material/Send";
-import { useApi, useFiles, useSnackbar } from "@/app/shared/hooks";
-import {
-  getCPFsThirdStepService,
-  getResultsService,
-  ProcessFirstStepReqData,
-  uploadThirdStepService,
-} from "@/services";
-import { UploadFile } from "@/app/shared/components";
-import download from "downloadjs";
+import { useApi } from "@/app/shared/hooks";
+import { getResultsService } from "@/services";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Row } from "@/app/shared/styled";
 
-const Result = ({
-  processId,
-  setProcessDetails,
-}: {
-  processId: string;
-  setProcessDetails: (processDetails: any) => void;
-}) => {
-  const { getBase64 } = useFiles();
-  const { openSnackbar } = useSnackbar();
+const columns: GridColDef[] = [
+  { field: "position", headerName: "Posição", width: 200 },
+  { field: "cpf", headerName: "CPF", width: 200 },
+  { field: "id", headerName: "Número do candidato", width: 240 },
+  { field: "grade", headerName: "Nota final", width: 200 },
+];
+
+const Result = ({ processId }: { processId: string }) => {
+  const [resultData, setResultData] =
+    useState<{ position: number; cpf: string; grade: number; id: string }[]>();
   const api = useApi();
 
   useEffect(() => {
     (async () => {
       try {
         const res = await getResultsService(api, processId);
-        console.log(res);
+        const resDataParsed = res.data.map((item, ind) => ({
+          position: ind + 1,
+          cpf: item.cpf,
+          grade: Number(item.notaFinal.toFixed(2)),
+          id: item.numCandidato,
+        }));
+        setResultData(resDataParsed);
       } catch (err) {
         console.log(err);
       }
     })();
   }, []);
 
+  if (!resultData)
+    return (
+      <Row width="100%" justifyContent="center">
+        <CircularProgress />
+      </Row>
+    );
+
   return (
     <>
-      <Typography variant="h5" mb={3}>
+      <Typography variant="h5" mb={2}>
         Resultado final
       </Typography>
+
+      <Box height={500} width="100%">
+        <DataGrid columns={columns} rows={resultData} pageSize={15} />
+      </Box>
     </>
   );
 };
