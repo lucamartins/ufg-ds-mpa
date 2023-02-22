@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
-import { CustomSnackbar } from "../shared/rootComponents";
+import { BackdropLoading, CustomSnackbar } from "@/app/shared/rootComponents";
 
 const GlobalLayout = () => {
   return (
     <>
+      <BackdropLoading />
       <CustomSnackbar />
       <Outlet />
     </>
