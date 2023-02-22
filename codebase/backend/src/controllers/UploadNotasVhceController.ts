@@ -29,7 +29,8 @@ class UploadNotasVhceController {
       const processData = await alterProcessStep.execute(4, processID);
 
       return response.status(200).json({
-        message: 'NotasVhce table updated'
+        message: 'NotasVhce table updated',
+        processData: processData
       });
     } catch (err) {
       next(err);
