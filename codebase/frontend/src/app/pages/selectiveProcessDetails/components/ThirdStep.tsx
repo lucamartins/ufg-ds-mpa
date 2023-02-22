@@ -10,6 +10,14 @@ import {
 } from "@/services";
 import { UploadFile } from "@/app/shared/components";
 import download from "downloadjs";
+import { UploadFileProps } from "@/app/shared/components/UploadFile/UploadFile";
+
+const fileHelperDialogData: UploadFileProps["fileHelperDialog"] = {
+  dialogTitle: "Formato do arquivo das notas ENEM",
+  fileFormat: "ods",
+  fileMaxSize: 10,
+  fileFields: ["cpfCandidato", "n1", "n2", "ntotal"],
+};
 
 const ThirdStep = ({
   processId,
@@ -71,6 +79,7 @@ const ThirdStep = ({
         file={file}
         setFile={setFile}
         primaryText="Para dar continuidade no processo seletivo, você precisa realizar o upload do arquivo (.ods) com as notas VHCE dos participantes."
+        fileHelperDialog={fileHelperDialogData}
       />
       <Row justifyContent="flex-end" mt={2}>
         <Button
