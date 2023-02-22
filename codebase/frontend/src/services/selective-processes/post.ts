@@ -4,6 +4,8 @@ import {
   AddProcessReqData,
   ProcessFirstStepReqData,
   ProcessFirstStepResData,
+  ProcessSecondStepReqData,
+  ProcessSecondStepResData,
 } from "./post.types";
 
 export const addProcessService = async (
@@ -30,3 +32,9 @@ export const getCPFsDocument = async (
       responseType: "blob",
     }
   );
+
+export const uploadSecondStepService = async (
+  api: ApiType,
+  data: ProcessSecondStepReqData
+): Promise<AxiosResponse<ProcessSecondStepResData>> =>
+  await api.post("/uploads/notasenem", data);

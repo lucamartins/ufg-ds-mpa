@@ -15,3 +15,13 @@ export interface ProcessFirstStepResData {
   message: string;
   processData: SelectiveProcess;
 }
+
+export interface ProcessSecondStepReqData {
+  processID: string;
+  base64: string;
+}
+
+export interface ProcessSecondStepResData {
+  message: string;
+  processData: SelectiveProcess;
+}
