@@ -35,3 +35,22 @@ export interface ProcessThirdStepResData {
   message: string;
   processData: SelectiveProcess;
 }
+
+export type ProcessResultsResData = {
+  anoEnem: number;
+  cargoId: number;
+  corRaca: number;
+  cpf: string;
+  dataInscricao: string;
+  formacaoEscolaPublica: boolean;
+  id: string;
+  nomeComunidade: string;
+  notaEnemId: string;
+  notaFinal: number;
+  notaVhceId: string;
+  numCandidato: string;
+  processoSeletivoId: string;
+  programa: number;
+  semestreIngresso: string;
+  tipoPrograma: number;
+}[];

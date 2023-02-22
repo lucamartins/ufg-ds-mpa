@@ -4,6 +4,7 @@ import {
   AddProcessReqData,
   ProcessFirstStepReqData,
   ProcessFirstStepResData,
+  ProcessResultsResData,
   ProcessSecondStepReqData,
   ProcessSecondStepResData,
   ProcessThirdStepReqData,
@@ -61,7 +62,10 @@ export const uploadThirdStepService = async (
 ): Promise<AxiosResponse<ProcessThirdStepResData>> =>
   await api.post("/uploads/vhce", data);
 
-export const getResultsService = async (api: ApiType, processId: string) =>
+export const getResultsService = async (
+  api: ApiType,
+  processId: string
+): Promise<AxiosResponse<ProcessResultsResData>> =>
   await api.post("/resultado", {
     processID: processId,
   });
