@@ -6,4 +6,4 @@ Documentação
 - [Vídeo explicativo do Back-end](https://drive.google.com/file/d/16qH4pojvcjkB4iiCIHUuk4xmQqtP-kOI/view?usp=share_link)
 - [Vídeo explicativo do Front-end](https://drive.google.com/file/d/1B574xvvwesKmlNXPkogbfPoDT-AGeDJO/view?usp=share_link)
 
-A versão beta está disponível em: https://lucamartins.dev 
+A versão beta está disponível em: https://mpa.lucamartins.dev 
